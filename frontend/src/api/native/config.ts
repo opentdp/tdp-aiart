@@ -1,8 +1,8 @@
 import { HttpClient } from "@/api/basic/http"
 
 export class ConfigModel extends HttpClient {
-    public list(module: string): Promise<ConfigPaged> {
-        return this.post("/config/list", { Module: module })
+    public list(rq: { Module?: string }): Promise<ConfigPaged> {
+        return this.post("/config/list", rq)
     }
 
     public detail(name: string): Promise<ConfigDetail> {
