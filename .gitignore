@@ -1,4 +1,3 @@
-.env
 .idea
 .vscode
 .DS_Store
@@ -14,3 +13,9 @@
 
 build/*
 front/*
+node_modules
+
+# local env files
+*lock*
+.env.local
+.env.*.local
