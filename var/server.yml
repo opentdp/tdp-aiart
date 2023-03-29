@@ -1,8 +1,8 @@
 dataset:
-    dir: .
+    dir: ../var
     secret: RQ2ngzuFn4JzGf936zkrqeUp45a3fGMg
 logger:
-    dir: .
+    dir: ../var
     level: info
     stdout: true
     tofile: false
