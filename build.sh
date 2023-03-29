@@ -2,15 +2,16 @@
 #
 
 if [ -n "$GITHUB_WORKSPACE" ]; then
-    WKDIR=`dirname $GITHUB_WORKSPACE`
+    WKDIR=$GITHUB_WORKSPACE
 else
-    WKDIR=$(dirname `dirname $0`)
+    WKDIR=`dirname $0`
 fi
 
 ###########################################
 
 echo ">> Prepare workspace"
 
+cd $WKDIR
 chmod +x $WKDIR/*/build.sh
 
 ###########################################
