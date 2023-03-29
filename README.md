@@ -4,10 +4,6 @@
 
 使用腾讯云 `Ai Art` 接口实现的智能绘画平台
 
-## 使用指引
-
-内容较多，请参考文档 <https://apps.rehiy.com/tdp-aiart/docs>
-
 ## 开发说明
 
 ### 启动开发服务
@@ -26,11 +22,9 @@
 - `chore` 构建过程或辅助工具的变动
 - `revert` 还原以前的提交
 
-> 自 **v0.5.0** 起，`git commit` 描述请以 **标识+半角冒号+空格** 开头，即 `<type>: <subject>`
-
 ### 编译为二进制
 
-在项目目录运行 `build.bat` 或 `./build.sh`。你还可以下载 [稳定版](https://apps.rehiy.com/tdp-aiart/release) 或 [午夜构建版](https://apps.rehiy.com/tdp-aiart/nightly)
+在项目目录运行 `build.bat` 或 `./build.sh`
 
 ### 额外参数设置
 
@@ -72,6 +66,7 @@ go env -w GOPROXY=https://goproxy.cn,direct
         "editor.defaultFormatter": "Vue.volar"
     }
 }
+```
 
 ## 微信交流群
 
