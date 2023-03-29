@@ -2,7 +2,7 @@
 
 [![TDP Aiart Builder](https://github.com/open-tdp/tdp-aiart/actions/workflows/release.yml/badge.svg)](https://github.com/open-tdp/tdp-aiart/actions/workflows/release.yml)
 
-使用腾讯云 `Ai Art` 接口实现的智能绘画平台
+使用腾讯云 `AiArt` 接口实现的开源绘画平台
 
 ## 开发说明
 
