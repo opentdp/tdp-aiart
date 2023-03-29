@@ -1,0 +1,66 @@
+name: TDP Aiart Builder
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      ###
+
+      - name: Setup go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Build go binary
+        run: sh build.sh
+
+      - name: Create github release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          body_path: docs/RELEASE.md
+          draft: false
+          prerelease: false
+          files: |
+            ./build/*
+
+      ###
+
+      - name: Login to dockerhub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      ###
+
+      - name: Setup qemu
+        uses: docker/setup-qemu-action@v2
+
+      - name: Setup docker buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Copy tdp-aiart-linux-*.gz
+        run: cp ./build/tdp-aiart-linux-*.gz ./docker/
+
+      - name: Docker build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: ./docker
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: rehiy/tdp-aiart:latest

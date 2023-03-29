@@ -1,0 +1,24 @@
+pre[max-height] {
+    overflow: auto;
+
+    &+.toolbar {
+        right: 20px !important;
+
+        .toolbar-item+.toolbar-item {
+            margin-left: 4px;
+        }
+    }
+
+    &>h3 {
+        margin-top: 0;
+    }
+}
+
+pre[max-height="300"] {
+    max-height: 300px !important;
+}
+
+
+pre[max-height="500"] {
+    max-height: 500px !important;
+}

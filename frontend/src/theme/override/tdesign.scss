@@ -1,0 +1,24 @@
+.t-space[fixed] {
+    display: flex;
+
+    &.t-space-align-center {
+        justify-content: center;
+    }
+}
+
+.t-tab-panel {
+    padding: 16px;
+}
+
+.t-table th {
+    background-color: var(--td-bg-color-component) !important;
+}
+
+.t-table td .t-link+.t-link {
+    margin-left: 10px;
+}
+
+.t-form__item .t-auto-complete,
+.t-form__item .t-input-adornment {
+    width: 100%;
+}

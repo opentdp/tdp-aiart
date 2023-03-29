@@ -1,0 +1,53 @@
+import { HttpClient } from "@/api/basic/http"
+
+export class ConfigModel extends HttpClient {
+    public list(module: string): Promise<ConfigPaged> {
+        return this.post("/config/list", { Module: module })
+    }
+
+    public detail(name: string): Promise<ConfigDetail> {
+        return this.post("/config/detail", { name: name })
+    }
+
+    public create(rq: ConfigOrig): Promise<{ Id: number }> {
+        return this.post("/config/create", rq)
+    }
+
+    public update(rq: Partial<ConfigItem>): Promise<null> {
+        return this.post("/config/update", rq)
+    }
+
+    public remove(id: number): Promise<null> {
+        return this.post("/config/delete", { Id: id })
+    }
+
+    public ui(): Promise<UIOption> {
+        return this.post("/config/ui", {})
+    }
+}
+
+export interface ConfigOrig {
+    Name: string
+    Value: string
+    Module: string
+    Description: string
+}
+
+export interface ConfigItem extends ConfigOrig {
+    Id: number
+    CreatedAt: number
+    UpdatedAt: number
+}
+
+export interface ConfigDetail {
+    Item: ConfigItem
+}
+
+export interface ConfigPaged {
+    Items: ConfigItem[]
+}
+
+export interface UIOption {
+    Version: string
+    Register: boolean
+}
