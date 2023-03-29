@@ -1,0 +1,16 @@
+.env
+.idea
+.vscode
+.DS_Store
+
+*.db
+*.err
+*.log
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+build/*
+front/*
