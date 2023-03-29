@@ -7,7 +7,7 @@ export default defineStore("layout", {
         // 版本号
         Version: "",
         // 允许注册
-        Register: false,
+        Registrable: false,
         // 侧栏折叠
         Collapse: false,
         // 主题模式
@@ -21,7 +21,8 @@ export default defineStore("layout", {
         // 获取前端配置
         initUIConfig() {
             NaApi.config.ui().then(res => {
-                Object.assign(this, res)
+                this.Version = res.Version
+                this.Registrable = res.Registrable == "true"
             })
         },
         // 设置主题模式

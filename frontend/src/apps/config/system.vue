@@ -21,7 +21,7 @@ export default class VendorAlibabaUpdate extends Vue {
     public configList: ConfigItem[] = []
 
     async getConfigList() {
-        const res = await NaApi.config.list({ Module: 'Tencent' })
+        const res = await NaApi.config.list({})
         this.configList = res.Items
     }
 
@@ -77,10 +77,10 @@ export default class VendorAlibabaUpdate extends Vue {
     public tableRef!: any
 
     public tableColumns: PrimaryTableCol<TableRowData | ConfigItem>[] = [
-        { colKey: 'Description', title: '键', ellipsis: true },
+        { colKey: 'Description', title: '配置项', ellipsis: true },
         {
             colKey: 'Value',
-            title: '值',
+            title: '配置值',
             edit: {
                 component: markRaw(Input),
                 props: {

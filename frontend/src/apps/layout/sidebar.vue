@@ -27,8 +27,8 @@ export default class LayoutSidebar extends Vue {
             title: "图生图",
         },
         {
-            icon: "server",
-            index: "/config/index",
+            icon: "setting",
+            index: "/config/system",
             title: "参数配置",
         },
     ]

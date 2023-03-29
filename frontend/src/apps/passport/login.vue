@@ -75,7 +75,7 @@ export default class PassportLogin extends Vue {
                         </t-button>
                     </t-form-item>
                 </t-form>
-                <div v-if="layout.Register" class="magic-guide">
+                <div v-if="layout.Registrable" class="magic-guide">
                     没有账号吗？
                     <t-link v-route="'/passport/register'" theme="default">
                         注册新账号
@@ -84,8 +84,8 @@ export default class PassportLogin extends Vue {
             </t-space>
         </t-content>
         <t-footer class="copyright">
-            <a href="https://apps.rehiy.com/tdp-aiart/" target="_blank" hover="color">
-                Powered by TDP Aiart
+            <a href="https://apps.rehiy.com/open-tdp/" target="_blank" hover="color">
+                Powered by Open TDP
             </a>
             {{ layout.Version ? "v" + layout.Version : "" }}
         </t-footer>

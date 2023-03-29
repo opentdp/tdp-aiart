@@ -5,6 +5,7 @@ import (
 
 	"tdp-aiart/cmd/args"
 	"tdp-aiart/helper/strutil"
+	"tdp-aiart/module/model/config"
 	"tdp-aiart/module/model/passport"
 	"tdp-aiart/module/model/user"
 )
@@ -21,7 +22,7 @@ func register(c *gin.Context) {
 	}
 
 	// 是否禁止注册
-	if !args.Server.Register {
+	if config.ValueOf("registrable") != "true" {
 		c.Set("Error", "抱歉，已关闭注册功能")
 		return
 	}

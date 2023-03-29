@@ -12,6 +12,16 @@ type Config struct {
 	UpdatedAt   int64
 }
 
+// 迁移记录
+
+type Migration struct {
+	Id          uint   `gorm:"primaryKey"`
+	Version     string `gorm:"uniqueIndex"`
+	Description string
+	CreatedAt   int64
+	UpdatedAt   int64
+}
+
 // 用户
 
 type User struct {

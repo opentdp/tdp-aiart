@@ -1,17 +1,12 @@
-database:
-    name: server.db
-    option: ?_pragma=busy_timeout=5000&_pragma=journa_mode(WAL)
-    type: sqlite
 dataset:
-    dir: ../var
-    secret: J3Gz25RV00WWwcowp1cpO0itD56ckZ7M
+    dir: .
+    secret: RQ2ngzuFn4JzGf936zkrqeUp45a3fGMg
 logger:
-    dir: ../var
+    dir: .
     level: info
     stdout: true
     tofile: false
 server:
     dsn: server.db
-    jwtkey: rYigfxny4OVv5P6GkF9q1Di6EQaRbo8O
-    listen: 127.0.0.1:7800
-    register: true
+    jwtkey: pdfMGKNgE22SuQ6AY8G12Mwkpls4250U
+    listen: :7800

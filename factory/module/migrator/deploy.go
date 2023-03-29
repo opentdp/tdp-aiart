@@ -2,7 +2,7 @@ package migrator
 
 import (
 	"tdp-aiart/helper/logman"
-	"tdp-aiart/module/model/config"
+	"tdp-aiart/module/model/migration"
 )
 
 func Deploy() {
@@ -15,11 +15,8 @@ func Deploy() {
 
 func addMigration(k, v string) error {
 
-	_, err := config.Create(&config.CreateParam{
-		Name:        k,
-		Value:       v,
-		Module:      "Migration",
-		Description: "数据库自动迁移记录",
+	_, err := migration.Create(&migration.CreateParam{
+		Version: k, Description: v,
 	})
 
 	return err
@@ -28,10 +25,10 @@ func addMigration(k, v string) error {
 
 func isMigrated(k string) bool {
 
-	q := &config.FetchParam{Name: k}
+	rq := &migration.FetchParam{Version: k}
 
-	if ur, err := config.Fetch(q); err == nil {
-		return ur.Id > 0
+	if rs, err := migration.Fetch(rq); err == nil {
+		return rs.Id > 0
 	}
 
 	return false

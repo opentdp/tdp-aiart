@@ -104,8 +104,8 @@ export default class PassportRegister extends Vue {
             </t-space>
         </t-content>
         <t-footer class="copyright">
-            <a href="https://apps.rehiy.com/tdp-aiart/" target="_blank" hover="color">
-                Powered by TDP Aiart
+            <a href="https://apps.rehiy.com/open-tdp/" target="_blank" hover="color">
+                Powered by Open TDP
             </a>
             {{ layout.Version ? "v" + layout.Version : "" }}
         </t-footer>

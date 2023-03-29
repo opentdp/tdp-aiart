@@ -22,6 +22,12 @@ func v100002AddConfig() error {
 
 	list := []config.CreateParam{
 		{
+			Name:        "registrable",
+			Value:       "true",
+			Module:      "system",
+			Description: "允许注册",
+		},
+		{
 			Name:        "secretId",
 			Value:       "",
 			Module:      "Tencent",

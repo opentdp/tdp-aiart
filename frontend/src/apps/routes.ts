@@ -23,13 +23,13 @@ export const routes: RouteRecordRaw[] = [
                 component: () => import("./dashboard/index.vue"),
             },
             {
-                path: "/config/index",
-                name: "config-index",
+                path: "/config/system",
+                name: "config-system",
                 meta: {
                     title: "系统参数",
                     login: true,
                 },
-                component: () => import("./config/index.vue"),
+                component: () => import("./config/system.vue"),
             },
             //////
             {
