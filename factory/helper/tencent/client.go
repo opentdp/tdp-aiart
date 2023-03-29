@@ -56,9 +56,7 @@ func newClient(rq *ReqeustParam) (*th.CommonResponse, error) {
 	if rq.Endpoint != "" {
 		cpf.HttpProfile.Endpoint = rq.Endpoint // 完整域名
 	} else if rq.Region != "" {
-		if rq.Service == "aiart" {
-			cpf.HttpProfile.Endpoint = rq.Service + "." + th.RootDomain
-		} else if !strings.HasSuffix(rq.Region, "-ec") {
+		if !strings.HasSuffix(rq.Region, "-ec") {
 			cpf.HttpProfile.Endpoint = rq.Service + "." + rq.Region + "." + th.RootDomain
 		}
 	}

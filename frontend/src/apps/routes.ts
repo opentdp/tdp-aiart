@@ -26,7 +26,7 @@ export const routes: RouteRecordRaw[] = [
                 path: "/config/index",
                 name: "config-index",
                 meta: {
-                    title: "参数配置",
+                    title: "系统参数",
                     login: true,
                 },
                 component: () => import("./config/index.vue"),
