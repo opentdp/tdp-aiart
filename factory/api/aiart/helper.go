@@ -7,6 +7,7 @@ import (
 
 	"github.com/mitchellh/mapstructure"
 
+	"tdp-aiart/cmd/args"
 	"tdp-aiart/helper/tencent"
 	"tdp-aiart/module/model/config"
 )
@@ -45,7 +46,7 @@ func saveImage(res any) error {
 	}
 
 	if data.ResultImage != "" {
-		filePath := "D:/test/test.jpg"
+		filePath := args.Dataset.Dir + "/aiart/" + data.RequestId + ".jpg"
 		return saveBase64ImageToFile(data.ResultImage, filePath)
 	}
 

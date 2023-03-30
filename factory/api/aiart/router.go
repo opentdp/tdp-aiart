@@ -8,7 +8,7 @@ import (
 
 func Router(api *gin.RouterGroup) {
 
-	rg := api.Group("/tencent")
+	rg := api.Group("/aiart")
 
 	// 需授权接口
 
