@@ -3,8 +3,8 @@ import { Ref, Component, Vue } from "vue-facing-decorator"
 
 import { FormInstanceFunctions, FormRules, SubmitContext, Data as TData } from "tdesign-vue-next"
 
-import Api, { TcApi } from "@/api"
-import * as TC from "@/api/tencent/typings"
+import Api, { NaApi } from "@/api"
+import * as IAiart from "@/api/native/typings/aiart"
 
 import * as Metadata from "./metadata"
 
@@ -14,20 +14,14 @@ export default class AiartText extends Vue {
 
     public loading = false
 
-    public image = ""
-
-    // 初始化
-
-    public created() {
-        TcApi.vendor(0)
-    }
+    public output = ""
 
     // 创建表单
 
     @Ref
     public formRef!: FormInstanceFunctions
 
-    public formModel: TC.Aiart.TextToImageRequest = {
+    public formModel: IAiart.TextToImageRequest = {
         Prompt: "",
         NegativePrompt: "",
         Styles: [],
@@ -37,7 +31,7 @@ export default class AiartText extends Vue {
         },
     }
 
-    public formRules: FormRules<TC.Aiart.TextToImageRequest> = {
+    public formRules: FormRules<IAiart.TextToImageRequest> = {
         Prompt: [{ required: true }],
     }
 
@@ -47,10 +41,10 @@ export default class AiartText extends Vue {
             return false
         }
         this.loading = true
-        const res = await TcApi.aiart.textToImage(this.formModel).finally(() => {
+        const res = await NaApi.aiart.byText(this.formModel).finally(() => {
             this.loading = false
         })
-        this.image = 'data:image/jpeg;base64,' + res.ResultImage
+        this.output = 'data:image/jpeg;base64,' + res.ResultImage
     }
 }
 </script>
@@ -90,8 +84,8 @@ export default class AiartText extends Vue {
             </t-form>
         </t-card>
 
-        <t-card v-if="image" title="生成结果" hover-shadow header-bordered>
-            <t-image :src="image" />
+        <t-card v-if="output" title="生成结果" hover-shadow header-bordered>
+            <t-image :src="output" />
         </t-card>
     </t-space>
 </template>

@@ -4,8 +4,8 @@ import { Ref, Component, Vue } from "vue-facing-decorator"
 import { FormInstanceFunctions, FormRules, SubmitContext, Data as TData, UploadFile, RequestMethodResponse } from "tdesign-vue-next"
 import { VueCropper } from "vue-cropper"
 
-import Api, { TcApi } from "@/api"
-import * as TC from "@/api/tencent/typings"
+import Api, { NaApi } from "@/api"
+import * as IAiart from "@/api/native/typings/aiart"
 
 import * as Metadata from "./metadata"
 
@@ -17,18 +17,12 @@ export default class AiartImage extends Vue {
 
     public output = ""
 
-    // 初始化
-
-    public created() {
-        TcApi.vendor(0)
-    }
-
     // 创建表单
 
     @Ref
     public formRef!: FormInstanceFunctions
 
-    public formModel: TC.Aiart.ImageToImageRequest = {
+    public formModel: IAiart.ImageToImageRequest = {
         InputImage: "",
         Prompt: "",
         NegativePrompt: "",
@@ -39,7 +33,7 @@ export default class AiartImage extends Vue {
         },
     }
 
-    public formRules: FormRules<TC.Aiart.ImageToImageRequest> = {
+    public formRules: FormRules<IAiart.ImageToImageRequest> = {
         InputImage: [{ required: true }],
     }
 
@@ -49,7 +43,7 @@ export default class AiartImage extends Vue {
             return false
         }
         this.output = "", this.loading = true
-        const res = await TcApi.aiart.imageToImage(this.formModel).finally(() => {
+        const res = await NaApi.aiart.byImage(this.formModel).finally(() => {
             this.loading = false
         })
         this.output = 'data:image/jpeg;base64,' + res.ResultImage

@@ -2,9 +2,7 @@ import { okMessage, errMessage } from "./basic/notify"
 
 import NaApi from "./native"
 
-import TcApi from "./tencent"
-
-export { NaApi, TcApi }
+export { NaApi }
 
 export default {
     na: NaApi,

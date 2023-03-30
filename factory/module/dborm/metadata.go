@@ -12,6 +12,20 @@ type Config struct {
 	UpdatedAt   int64
 }
 
+// 图片
+
+type Image struct {
+	Id         uint `gorm:"primaryKey"`
+	UserId     uint `gorm:"index"`
+	Subject    string
+	Request    any `gorm:"serializer:json"`
+	InputFile  string
+	OutputFile string
+	Status     string
+	CreatedAt  int64
+	UpdatedAt  int64
+}
+
 // 迁移记录
 
 type Migration struct {

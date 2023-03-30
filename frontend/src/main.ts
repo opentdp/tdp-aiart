@@ -13,8 +13,6 @@ import setupRouter from "@/setup/router"
 import setupTDesign from "@/setup/tdesign"
 
 import setupCropper from "@/setup/cropper"
-import setupEcharts from "@/setup/echarts"
-import setupHighlight from "@/setup/highlight"
 
 const app = createApp(App)
 
@@ -26,7 +24,5 @@ setupRouter(app)
 setupTDesign(app)
 
 setupCropper(app)
-setupEcharts(app)
-setupHighlight(app)
 
 app.mount("#app")
