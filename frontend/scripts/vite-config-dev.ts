@@ -4,7 +4,7 @@ import { UserConfig } from "vite"
 
 export const config: UserConfig = {
     server: {
-        port: 7900,
+        port: 7780,
         open: false,
         proxy: {
             "/api": {
