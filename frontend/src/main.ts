@@ -12,6 +12,7 @@ import setupRouter from "@/setup/router"
 
 import setupTDesign from "@/setup/tdesign"
 
+import setupCropper from "@/setup/cropper"
 import setupEcharts from "@/setup/echarts"
 import setupHighlight from "@/setup/highlight"
 
@@ -24,6 +25,7 @@ setupRouter(app)
 
 setupTDesign(app)
 
+setupCropper(app)
 setupEcharts(app)
 setupHighlight(app)
 

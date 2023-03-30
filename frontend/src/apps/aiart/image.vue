@@ -2,6 +2,7 @@
 import { Ref, Component, Vue } from "vue-facing-decorator"
 
 import { FormInstanceFunctions, FormRules, SubmitContext, Data as TData, UploadFile, RequestMethodResponse } from "tdesign-vue-next"
+import { VueCropper } from "vue-cropper"
 
 import Api, { TcApi } from "@/api"
 import * as TC from "@/api/tencent/typings"
@@ -14,7 +15,7 @@ export default class AiartImage extends Vue {
 
     public loading = false
 
-    public image = ""
+    public output = ""
 
     // 初始化
 
@@ -31,8 +32,11 @@ export default class AiartImage extends Vue {
         InputImage: "",
         Prompt: "",
         NegativePrompt: "",
-        Styles: [],
+        Styles: [""],
         LogoAdd: 0,
+        ResultConfig: {
+            Resolution: "1024:768",
+        },
     }
 
     public formRules: FormRules<TC.Aiart.ImageToImageRequest> = {
@@ -44,25 +48,65 @@ export default class AiartImage extends Vue {
             Api.msg.err("请检查表单")
             return false
         }
-        this.loading = true
+        this.output = "", this.loading = true
         const res = await TcApi.aiart.imageToImage(this.formModel).finally(() => {
             this.loading = false
         })
-        this.image = 'data:image/jpeg;base64,' + res.ResultImage
+        this.output = 'data:image/jpeg;base64,' + res.ResultImage
     }
 
-    async uploadMethod(files: UploadFile | UploadFile[]): Promise<RequestMethodResponse> {
-        const file = files as UploadFile
+    // 图片选择
+
+    public imageOrigin = ""
+
+    public imageSelect(file: UploadFile) {
         const reader = new FileReader()
-        reader.readAsDataURL(file.raw as File)
-        reader.onload = () => {
-            this.formModel.InputImage = reader.result as string
-        }
-        return {
+        file.raw && reader.readAsDataURL(file.raw)
+        reader.onload = () => this.imageOrigin = String(reader.result)
+        const data: RequestMethodResponse = {
             status: 'success', response: {
                 url: 'assets/img/avatar.jpg'
             }
         }
+        return Promise.resolve(data)
+    }
+
+    public imageClear() {
+        this.imageOrigin = ''
+        this.formModel.InputImage = ''
+    }
+
+    // 图片裁剪
+
+    @Ref
+    public cropper: VueCropper
+
+    public fixedNumber = [4, 3]
+    public limitMinSize = [200, 150]
+
+    public cropperPreview() {
+        this.cropper.getCropData((data: string) => {
+            this.formModel.InputImage = data
+        })
+    }
+
+    public onResolutionChange() {
+        const img = this.imageOrigin; this.imageOrigin = ''
+        switch (this.formModel.ResultConfig?.Resolution) {
+            case "768:768":
+                this.fixedNumber = [1, 1]
+                this.limitMinSize = [200, 200]
+                break
+            case "768:1024":
+                this.fixedNumber = [3, 4]
+                this.limitMinSize = [150, 200]
+                break
+            case "1024:768":
+                this.fixedNumber = [4, 3]
+                this.limitMinSize = [200, 150]
+                break
+        }
+        setTimeout(() => this.imageOrigin = img)
     }
 }
 </script>
@@ -86,6 +130,13 @@ export default class AiartImage extends Vue {
                             :label="item.label" />
                     </t-select>
                 </t-form-item>
+                <t-form-item name="Styles" label="输出尺寸">
+                    <t-select v-model="formModel.ResultConfig!.Resolution" @change="onResolutionChange">
+                        <t-option value="768:768" label="768x768" />
+                        <t-option value="768:1024" label="768x1024" />
+                        <t-option value="1024:768" label="1024x768" />
+                    </t-select>
+                </t-form-item>
                 <t-form-item name="Prompt" label="文本描述">
                     <t-textarea v-model="formModel.Prompt" :autosize="{ minRows: 3, maxRows: 15 }" :maxlength="512"
                         :placeholder="meta.promptDesc" />
@@ -95,42 +146,40 @@ export default class AiartImage extends Vue {
                         :placeholder="meta.negativePromptDesc" />
                 </t-form-item>
                 <t-form-item name="InputImage" label="输入图片">
-                    <t-upload class="upload" theme="custom" draggable :request-method="uploadMethod">
+                    <t-space v-if="imageOrigin">
+                        <vueCropper ref="cropper" class="cropper" mode="cover" output-type="png" :img="imageOrigin"
+                            :auto-crop="true" :info-true="true" :fixed="true" :fixed-number="fixedNumber"
+                            :limit-min-size="limitMinSize" @real-time="cropperPreview" />
+                        <img v-if="formModel.InputImage" :src="formModel.InputImage" width="200">
+                    </t-space>
+                    <t-upload v-else theme="custom" draggable :request-method="imageSelect">
                         <template #dragContent="params">
-                            <img v-if="formModel.InputImage" :src="formModel.InputImage">
-                            <p v-else-if="params && params.dragActive">
-                                释放鼠标
-                            </p>
-                            <p v-else>
-                                点击或拖拽上传
-                            </p>
+                            {{ params && params.dragActive ? "释放鼠标" : "点击或拖拽上传" }}
                         </template>
                     </t-upload>
                 </t-form-item>
                 <t-form-item>
-                    <t-button theme="primary" type="submit" :loading="loading">
-                        提交
-                    </t-button>
+                    <t-space>
+                        <t-button theme="primary" type="submit" :loading="loading">
+                            提交
+                        </t-button>
+                        <t-button theme="warning" @click="imageClear">
+                            清除图片
+                        </t-button>
+                    </t-space>
                 </t-form-item>
             </t-form>
         </t-card>
 
-        <t-card v-if="image" title="生成结果" hover-shadow header-bordered>
-            <t-image :src="image" />
+        <t-card v-if="output" title="生成结果" hover-shadow header-bordered>
+            <t-image :src="output" />
         </t-card>
     </t-space>
 </template>
 
 <style lang="scss" scoped>
-.upload {
-    :deep(.t-upload__dragger) {
-        width: 100%;
-        height: auto;
-    }
-
-    img {
-        max-width: 100%;
-        max-height: 200px;
-    }
+.cropper {
+    width: 480px;
+    height: 320px;
 }
 </style>

@@ -30,8 +30,11 @@ export default class AiartText extends Vue {
     public formModel: TC.Aiart.TextToImageRequest = {
         Prompt: "",
         NegativePrompt: "",
-        Styles: [],
+        Styles: [""],
         LogoAdd: 0,
+        ResultConfig: {
+            Resolution: "1024:768",
+        },
     }
 
     public formRules: FormRules<TC.Aiart.TextToImageRequest> = {
