@@ -15,7 +15,7 @@ logger:
     level: info
 server:
     dsn: server.db
-    listen: :7800
+    listen: :7700
 EOF
 
 exec tdp-aiart server -c $yml

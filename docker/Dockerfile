@@ -14,4 +14,4 @@ COPY --from=builder /usr/local/bin/tdp-* /usr/local/bin/
 
 ENTRYPOINT ["tdp-aiart"]
 
-EXPOSE 7800
+EXPOSE 7700

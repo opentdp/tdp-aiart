@@ -9,4 +9,4 @@ logger:
 server:
     dsn: server.db
     jwtkey: pdfMGKNgE22SuQ6AY8G12Mwkpls4250U
-    listen: :7800
+    listen: :7700

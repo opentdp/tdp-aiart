@@ -8,7 +8,7 @@ export const config: UserConfig = {
         open: false,
         proxy: {
             "/api": {
-                target: "http://127.0.0.1:7800",
+                target: "http://127.0.0.1:7700",
             },
         },
     },
