@@ -1,6 +1,7 @@
 package aiart
 
 import (
+	"encoding/json"
 	"errors"
 
 	"tdp-aiart/helper/tencent"
@@ -21,6 +22,8 @@ func apiProxy(rq *ReqeustParams) (*ToImageResponse, error) {
 
 	// 发起请求
 
+	payload, _ := json.Marshal(rq.Payload)
+
 	param := &tencent.ReqeustParam{
 		Service:   "aiart",
 		Region:    "ap-guangzhou",
@@ -28,7 +31,7 @@ func apiProxy(rq *ReqeustParams) (*ToImageResponse, error) {
 		SecretId:  kv["secretId"],
 		SecretKey: kv["secretKey"],
 		Action:    rq.Action,
-		Payload:   rq.Payload,
+		Payload:   payload,
 	}
 
 	resp, err := tencent.Request(param)
@@ -58,7 +61,6 @@ type ToImageRequest struct {
 	Styles         []string
 	ResultConfig   any
 	LogoAdd        int64
-	LogoParam      any
 	Strength       float64
 }
 
