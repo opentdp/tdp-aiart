@@ -16,9 +16,14 @@ router.beforeEach((to, from, next) => {
     const session = sessionStore()
 
     const isLogin = !!session.Token
-
     if (to.meta.login && !isLogin) {
         next("/passport/login")
+        return
+    }
+
+    const isAdmin = session.Level == 1
+    if (to.meta.admin && !isAdmin) {
+        next("/error/403")
         return
     }
 

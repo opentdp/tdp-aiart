@@ -1,37 +1,37 @@
 <script lang="ts">
 import { Component, Vue } from "vue-facing-decorator"
+import { onBeforeRouteUpdate, RouteLocationNormalized } from "vue-router"
 
 import layoutStore from "@/store/layout"
-import { onBeforeRouteUpdate, RouteLocationNormalized } from "vue-router"
+import sessionStore from "@/store/session"
 
 @Component
 export default class LayoutSidebar extends Vue {
     public layout = layoutStore()
+    public session = sessionStore()
 
     // 菜单列表
 
-    public items: MenuItem[] = [
-        {
-            icon: "home",
-            index: "/dashboard",
-            title: "首页",
-        },
-        {
-            icon: "server",
-            index: "/aiart/text",
-            title: "文生图",
-        },
-        {
-            icon: "image",
-            index: "/aiart/image",
-            title: "图生图",
-        },
-        {
-            icon: "setting",
-            index: "/config/system",
-            title: "参数配置",
-        },
-    ]
+    public items: MenuItem[] = []
+
+    // 初始化
+
+    public created() {
+        this.items = this.itemFilter(menuItems)
+    }
+
+    public itemFilter(items: MenuItem[]) {
+        const level = this.session.Level
+        return items.filter(item => {
+            if (item.level && item.level < level) {
+                return false //用户组权限不足
+            }
+            if (item.subs) {
+                item.subs = this.itemFilter(item.subs)
+            }
+            return true
+        })
+    }
 
     // 侧栏控制
 
@@ -40,26 +40,23 @@ export default class LayoutSidebar extends Vue {
     public getExpanded(to: RouteLocationNormalized): string[] {
         if (this.items.findIndex(item => item.index === to.path) >= 0) {
             return []
-        } else {
-            const idx = this.items.findIndex(item => {
-                return item.subs && item.subs.findIndex(sub_item => sub_item.index === to.path) >= 0
-            })
-            if (idx == -1) {
-                return []
-            } else {
-                return [this.items[idx].index]
-            }
         }
+        const idx = this.items.findIndex(item => {
+            return item.subs && item.subs.findIndex(sub => sub.index === to.path) >= 0
+        })
+        if (idx == -1) {
+            return []
+        }
+        return [this.items[idx].index]
     }
 
     public mounted() {
         this.expanded = this.getExpanded(this.$route)
-        onBeforeRouteUpdate((to) => {
+        this.$router.afterEach((to) => {
             const exp = new Set<string>(this.expanded)
             this.getExpanded(to).forEach(item => exp.add(item))
             this.expanded = Array.from(exp)
         })
-
     }
 }
 
@@ -67,8 +64,33 @@ interface MenuItem {
     icon: string
     index: string
     title: string
+    level?: number
     subs?: MenuItem[]
 }
+
+const menuItems: MenuItem[] = [
+    {
+        icon: "home",
+        index: "/dashboard",
+        title: "首页",
+    },
+    {
+        icon: "server",
+        index: "/aiart/text",
+        title: "文生图",
+    },
+    {
+        icon: "image",
+        index: "/aiart/image",
+        title: "图生图",
+    },
+    {
+        icon: "setting",
+        index: "/config/system",
+        title: "参数配置",
+        level: 1,
+    },
+]
 </script>
 
 <template>

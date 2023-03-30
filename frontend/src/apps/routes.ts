@@ -27,6 +27,7 @@ export const routes: RouteRecordRaw[] = [
                 name: "config-system",
                 meta: {
                     title: "系统参数",
+                    admin: true,
                     login: true,
                 },
                 component: () => import("./config/system.vue"),
