@@ -32,7 +32,7 @@ export default class AiartImage extends Vue {
         InputImage: "",
         Prompt: "",
         NegativePrompt: "",
-        Styles: [""],
+        Styles: [],
         LogoAdd: 0,
         ResultConfig: {
             Resolution: "1024:768",
