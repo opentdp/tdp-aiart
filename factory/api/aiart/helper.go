@@ -4,6 +4,8 @@ import (
 	"encoding/base64"
 	"errors"
 	"os"
+	"path"
+	"strings"
 
 	"github.com/mitchellh/mapstructure"
 
@@ -34,7 +36,7 @@ func apiProxy(param *tencent.ReqeustParam) (any, error) {
 
 }
 
-func saveImage(res any) error {
+func saveOutputImage(res any) (string, error) {
 
 	data := struct {
 		RequestId   string
@@ -42,15 +44,18 @@ func saveImage(res any) error {
 	}{}
 
 	if err := mapstructure.Decode(res, &data); err != nil {
-		return err
+		return "", err
 	}
 
-	if data.ResultImage != "" {
-		filePath := args.Dataset.Dir + "/aiart/" + data.RequestId + ".jpg"
-		return saveBase64ImageToFile(data.ResultImage, filePath)
+	if data.ResultImage == "" {
+		return "", errors.New("图片生成失败")
 	}
 
-	return nil
+	fileName := strings.ReplaceAll(data.RequestId, "-", "/")
+	filePath := args.Dataset.Dir + "/aiart/" + fileName + ".jpg"
+	os.MkdirAll(path.Dir(filePath), 0755)
+
+	return filePath, saveBase64ImageToFile(data.ResultImage, filePath)
 
 }
 

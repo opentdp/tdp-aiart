@@ -15,6 +15,7 @@
 .env.local
 .env.*.local
 
-build
-front
-node_modules
+var/
+build/
+front/
+node_modules/

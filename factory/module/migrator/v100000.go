@@ -17,6 +17,7 @@ func v100000() error {
 func v100000AutoMigrate() error {
 
 	return dborm.Db.AutoMigrate(
+		&dborm.Artimg{},
 		&dborm.Config{},
 		&dborm.Migration{},
 		&dborm.User{},

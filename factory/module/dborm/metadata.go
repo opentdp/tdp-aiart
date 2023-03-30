@@ -1,5 +1,17 @@
 package dborm
 
+// 图片
+
+type Artimg struct {
+	Id         uint `gorm:"primaryKey"`
+	UserId     uint `gorm:"index"`
+	Subject    any  `gorm:"serializer:json"`
+	OutputFile string
+	Status     string
+	CreatedAt  int64
+	UpdatedAt  int64
+}
+
 // 系统配置
 
 type Config struct {
@@ -10,20 +22,6 @@ type Config struct {
 	Description string
 	CreatedAt   int64
 	UpdatedAt   int64
-}
-
-// 图片
-
-type Image struct {
-	Id         uint `gorm:"primaryKey"`
-	UserId     uint `gorm:"index"`
-	Subject    string
-	Request    any `gorm:"serializer:json"`
-	InputFile  string
-	OutputFile string
-	Status     string
-	CreatedAt  int64
-	UpdatedAt  int64
 }
 
 // 迁移记录
