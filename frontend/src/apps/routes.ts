@@ -1,11 +1,12 @@
 import { RouteRecordRaw } from "vue-router"
 
+import portal from "./portal/index.vue"
 import layout from "./layout/index.vue"
 
 export const routes: RouteRecordRaw[] = [
     {
         path: "/",
-        redirect: "/dashboard",
+        component: portal,
     },
     //////
     {
