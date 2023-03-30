@@ -9,9 +9,9 @@ import (
 
 func apiProxy(c *gin.Context) {
 
-	secretId, secretKey := fetchSecret()
+	kv := config.ValuesOf("Tencent")
 
-	if secretId == "" || secretKey == "" {
+	if kv["secretId"] == "" || kv["secretKey"] == "" {
 		c.Set("Error", "请先配置SecretId和SecretKey")
 		return
 	}
@@ -19,8 +19,8 @@ func apiProxy(c *gin.Context) {
 	// 绑定参数
 
 	param := &tencent.ReqeustParam{
-		SecretId:  secretId,
-		SecretKey: secretKey,
+		SecretId:  kv["secretId"],
+		SecretKey: kv["secretKey"],
 	}
 
 	if err := c.ShouldBindJSON(param); err != nil {
@@ -35,28 +35,5 @@ func apiProxy(c *gin.Context) {
 	} else {
 		c.Set("Error", err)
 	}
-
-}
-
-// 获取SecretId和SecretKey
-
-func fetchSecret() (string, string) {
-
-	secretId := ""
-	secretKey := ""
-
-	rq := &config.FetchAllParam{Module: "Tencent"}
-	if res, err := config.FetchAll(rq); err == nil {
-		for _, rs := range res {
-			if rs.Name == "secretId" {
-				secretId = rs.Value
-			}
-			if rs.Name == "secretKey" {
-				secretKey = rs.Value
-			}
-		}
-	}
-
-	return secretId, secretKey
 
 }
