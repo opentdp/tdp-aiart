@@ -44,15 +44,12 @@ export default class LayoutSidebar extends Vue {
         const idx = this.items.findIndex(item => {
             return item.subs && item.subs.findIndex(sub => sub.index === to.path) >= 0
         })
-        if (idx == -1) {
-            return []
-        }
-        return [this.items[idx].index]
+        return idx == -1 ? [] : [this.items[idx].index]
     }
 
     public mounted() {
         this.expanded = this.getExpanded(this.$route)
-        this.$router.afterEach((to) => {
+        onBeforeRouteUpdate((to) => {
             const exp = new Set<string>(this.expanded)
             this.getExpanded(to).forEach(item => exp.add(item))
             this.expanded = Array.from(exp)
@@ -87,7 +84,7 @@ const menuItems: MenuItem[] = [
     {
         icon: "setting",
         index: "/config/system",
-        title: "参数配置",
+        title: "系统参数",
         level: 1,
     },
 ]
