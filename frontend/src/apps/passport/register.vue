@@ -14,11 +14,7 @@ export default class PassportRegister extends Vue {
     public layout = layoutStore()
     public session = sessionStore()
 
-    // 初始化
-
-    public created() {
-        this.layout.initUIConfig()
-    }
+    // 创建表单
 
     @Ref
     public formRef!: FormInstanceFunctions
@@ -57,7 +53,7 @@ export default class PassportRegister extends Vue {
         <t-content class="content">
             <t-space fixed direction="vertical" class="magic-box">
                 <div class="magic-title">
-                    登录到<br>TDP Aiart Console
+                    登录到<br>{{ layout.SiteName }} 控制面板
                 </div>
                 <t-form ref="formRef" :data="formModel" :rules="formRules" label-width="0px" class="magic-body"
                     @submit="formSubmit">
@@ -104,12 +100,20 @@ export default class PassportRegister extends Vue {
             </t-space>
         </t-content>
         <t-footer class="copyright">
-            <a href="https://apps.rehiy.com/open-tdp/" target="_blank" hover="color">
-                Powered by Open TDP
-            </a>
-            <a href="https://apps.rehiy.com/tdp-cloud/" target="_blank" hover="color">
-                Aiart {{ layout.Version ? "v" + layout.Version : "" }}
-            </a>
+            <t-space :size="4" separator="•">
+                <a v-if="layout.Copytext" :href="layout.Copylink" target="_blank" hover="color">
+                    &copy; {{ layout.Copytext }}
+                </a>
+                <a v-else href="https://apps.rehiy.com/open-tdp/" target="_blank" hover="color">
+                    Powered by Open TDP
+                </a>
+                <a v-if="layout.IcpCode" href="https://beian.miit.gov.cn/" target="_blank" hover="color">
+                    {{ layout.IcpCode }}
+                </a>
+                <a href="https://apps.rehiy.com/tdp-cloud/" target="_blank" hover="color">
+                    Aiart {{ layout.Version ? "v" + layout.Version : "" }}
+                </a>
+            </t-space>
         </t-footer>
     </t-layout>
 </template>

@@ -14,7 +14,7 @@ func v100002() error {
 		return err
 	}
 
-	return addMigration("v100002", "添加默认参数")
+	return addMigration("v100002", "添加系统参数")
 
 }
 
@@ -22,20 +22,23 @@ func v100002AddConfig() error {
 
 	list := []config.CreateParam{
 		{
-			Name:        "registrable",
+			Name:        "Registrable",
 			Value:       "true",
+			Type:        "bool",
 			Module:      "system",
 			Description: "允许注册",
 		},
 		{
 			Name:        "secretId",
 			Value:       "",
+			Type:        "string",
 			Module:      "Tencent",
 			Description: "腾讯云 SecretId",
 		},
 		{
 			Name:        "secretKey",
 			Value:       "",
+			Type:        "string",
 			Module:      "Tencent",
 			Description: "腾讯云 SecretKey",
 		},
