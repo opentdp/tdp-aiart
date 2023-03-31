@@ -12,15 +12,6 @@ export default class LayoutHeader extends Vue {
     public layout = layoutStore()
     public session = sessionStore()
 
-    // 初始化
-
-    public created() {
-        this.layout.syncThemeMode()
-        if (document.body.clientWidth < 1000) {
-            this.layout.setCollapse(true)
-        }
-    }
-
     // 侧边栏折叠
     public collapseChange() {
         this.layout.setCollapse(!this.layout.Collapse)

@@ -27,28 +27,39 @@ export default defineStore("layout", {
         setCollapse(data: boolean) {
             this.Collapse = data
         },
+        // 设置主题模式
+        setThemeMode(mode: "dark" | "light" | "classic") {
+            this.ThemeMode = mode
+            this.applyConfig()
+        },
         // 获取前端配置
-        async initUIConfig() {
+        async fetchConfig() {
             const res = await NaApi.config.ui()
             Object.keys(res).forEach(k => {
-                Object.assign(res, { [k]: res[k].trim() })
+                Object.assign(this, { [k]: res[k].trim() })
             })
             this.Registrable = res.Registrable == "true"
             this.SiteName = res.SiteName || vars.SiteName
             this.Analytics = res.Analytics || vars.Analytics
+            this.applyConfig()
         },
-        // 设置主题模式
-        setThemeMode(mode: "dark" | "light") {
-            this.ThemeMode = mode
-            this.syncThemeMode()
+        // 执行行内脚本
+        runScript(code: string) {
+            const script = document.createElement('script')
+            script.innerHTML = code // 行内脚本
+            document.body.appendChild(script)
+            document.body.removeChild(script)
         },
-        syncThemeMode() {
-            if (this.ThemeMode == "dark") {
-                document.documentElement.setAttribute('theme-mode', 'dark')
-            } else {
-                document.documentElement.removeAttribute('theme-mode')
+        // 应用布局设置
+        applyConfig() {
+            if (this.Analytics) {
+                this.runScript(this.Analytics)
             }
-        }
+            if (document.body.clientWidth < 1000) {
+                this.setCollapse(true)
+            }
+            document.documentElement.setAttribute('theme-mode', this.ThemeMode)
+        },
     },
     persist: {
         enabled: true,
