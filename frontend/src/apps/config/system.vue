@@ -102,7 +102,7 @@ export default class VendorAlibabaUpdate extends Vue {
 </script>
 
 <template>
-    <t-table ref="tableRef" :data="configList" :columns="tableColumns" :editable-row-keys="editableRows" row-key="Id"
+    <t-table ref="tableRef" :data="configList" :columns="tableColumns" :editable-row-keys="editableRows" :hover="true" row-key="Id"
         cell-empty-content="--" @row-validate="onRowValidate">
         <template #Operation="{ row }">
             <template v-if="editableRows.includes(row.Id)">
