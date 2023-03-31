@@ -87,7 +87,9 @@ export default class PassportLogin extends Vue {
             <a href="https://apps.rehiy.com/open-tdp/" target="_blank" hover="color">
                 Powered by Open TDP
             </a>
-            {{ layout.Version ? "v" + layout.Version : "" }}
+            <a href="https://apps.rehiy.com/tdp-cloud/" target="_blank" hover="color">
+                Aiart {{ layout.Version ? "v" + layout.Version : "" }}
+            </a>
         </t-footer>
     </t-layout>
 </template>
