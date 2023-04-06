@@ -84,13 +84,13 @@ export default class PassportLogin extends Vue {
                 <a v-if="layout.Copytext" :href="layout.Copylink" target="_blank" hover="color">
                     &copy; {{ layout.Copytext }}
                 </a>
-                <a v-else href="https://apps.rehiy.com/open-tdp/" target="_blank" hover="color">
+                <a v-else href="https://www.opentdp.org/" target="_blank" hover="color">
                     Powered by Open TDP
                 </a>
                 <a v-if="layout.IcpCode" href="https://beian.miit.gov.cn/" target="_blank" hover="color">
                     {{ layout.IcpCode }}
                 </a>
-                <a href="https://apps.rehiy.com/tdp-cloud/" target="_blank" hover="color">
+                <a href="https://aiart.opentdp.org/" target="_blank" hover="color">
                     Aiart {{ layout.Version ? "v" + layout.Version : "" }}
                 </a>
             </t-space>
