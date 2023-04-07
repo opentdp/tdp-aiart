@@ -29,14 +29,14 @@ func v100002AddConfig() error {
 			Description: "允许注册",
 		},
 		{
-			Name:        "secretId",
+			Name:        "SecretId",
 			Value:       "",
 			Type:        "string",
 			Module:      "Tencent",
 			Description: "腾讯云 SecretId",
 		},
 		{
-			Name:        "secretKey",
+			Name:        "SecretKey",
 			Value:       "",
 			Type:        "string",
 			Module:      "Tencent",

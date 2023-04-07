@@ -15,7 +15,7 @@ func apiProxy(rq *ReqeustParams) (*ToImageResponse, error) {
 
 	kv := config.ValuesOf("Tencent")
 
-	if kv["secretId"] == "" || kv["secretKey"] == "" {
+	if kv["SecretId"] == "" || kv["SecretKey"] == "" {
 		return nil, errors.New("请先配置腾讯云密钥")
 	}
 
@@ -25,8 +25,8 @@ func apiProxy(rq *ReqeustParams) (*ToImageResponse, error) {
 		Service:   "aiart",
 		Region:    "ap-guangzhou",
 		Version:   "2022-12-29",
-		SecretId:  kv["secretId"],
-		SecretKey: kv["secretKey"],
+		SecretId:  kv["SecretId"],
+		SecretKey: kv["SecretKey"],
 		Action:    rq.Action,
 		Payload:   rq.Payload,
 	}
