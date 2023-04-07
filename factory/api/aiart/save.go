@@ -7,19 +7,24 @@ import (
 	"path"
 	"strings"
 
+	"github.com/mitchellh/mapstructure"
+
 	"tdp-aiart/cmd/args"
 	"tdp-aiart/module/model/artimg"
 )
 
-func saveObject(payload *ToImageRequest, data *ToImageResponse) (uint, error) {
+func saveObject(payload any, data *ToImageResponse) (uint, error) {
 
 	outputP, _ := saveOutputImage(data)
 
-	if payload.InputImage != "" {
+	post := ImageToImageRequest{}
+	err := mapstructure.Decode(payload, &post)
+
+	if err == nil && post.InputImage != "" {
 		inputP := outputP + "-input.png"
-		base64 := strings.Split(payload.InputImage, ",")[1]
+		base64 := strings.Split(post.InputImage, ",")[1]
 		if saveBase64ImageToFile(base64, inputP) == nil {
-			payload.InputImage = strings.ReplaceAll(inputP, args.Dataset.Dir, "")
+			post.InputImage = strings.ReplaceAll(inputP, args.Dataset.Dir, "")
 		}
 	}
 

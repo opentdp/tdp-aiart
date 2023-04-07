@@ -26,7 +26,7 @@ func create(c *gin.Context) {
 
 	// 存储数据
 
-	saveObject(&param.Payload, res)
+	saveObject(param.Payload, res)
 
 	// 输出数据
 
