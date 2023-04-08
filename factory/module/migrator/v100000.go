@@ -2,25 +2,22 @@ package migrator
 
 import (
 	"tdp-aiart/module/dborm"
+	"tdp-aiart/module/model"
 )
 
 func v100000() error {
 
-	if err := v100000AutoMigrate(); err != nil {
-		return err
-	}
-
-	return nil
+	return v100000AutoMigrate()
 
 }
 
 func v100000AutoMigrate() error {
 
 	return dborm.Db.AutoMigrate(
-		&dborm.Artimg{},
-		&dborm.Config{},
-		&dborm.Migration{},
-		&dborm.User{},
+		&model.Artimg{},
+		&model.Config{},
+		&model.Migration{},
+		&model.User{},
 	)
 
 }

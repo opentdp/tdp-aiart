@@ -13,10 +13,12 @@ func init() {
 	viper.SetDefault("dataset.dir", ".")
 	viper.SetDefault("dataset.secret", strutil.Rand(32))
 
+	viper.SetDefault("database.type", "sqlite")
+	viper.SetDefault("database.name", "server.db")
+
 	viper.SetDefault("logger.dir", ".")
 	viper.SetDefault("logger.level", "info")
-	viper.SetDefault("logger.stdout", true)
-	viper.SetDefault("logger.tofile", false)
+	viper.SetDefault("logger.target", "stdout")
 
 	viper.SetDefault("server.jwtkey", strutil.Rand(32))
 
@@ -29,7 +31,7 @@ func Load() {
 	Dataset.Dir = viper.GetString("dataset.dir")
 	Dataset.Secret = viper.GetString("dataset.secret")
 
-	Database.Type = viper.GetString("database.dir")
+	Database.Type = viper.GetString("database.type")
 	Database.Host = viper.GetString("database.host")
 	Database.User = viper.GetString("database.user")
 	Database.Passwd = viper.GetString("database.passwd")
@@ -38,10 +40,8 @@ func Load() {
 
 	Logger.Dir = viper.GetString("logger.dir")
 	Logger.Level = viper.GetString("logger.level")
-	Logger.Stdout = viper.GetBool("logger.stdout")
-	Logger.ToFile = viper.GetBool("logger.tofile")
+	Logger.Target = viper.GetString("logger.target")
 
-	Server.DSN = viper.GetString("server.dsn")
 	Server.Listen = viper.GetString("server.listen")
 	Server.JwtKey = viper.GetString("server.jwtkey")
 

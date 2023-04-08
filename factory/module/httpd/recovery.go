@@ -9,7 +9,6 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"go.uber.org/zap"
 
 	"tdp-aiart/helper/logman"
 )
@@ -39,8 +38,8 @@ func Recovery(stack bool) gin.HandlerFunc {
 				if brokenPipe {
 					logger.Error(
 						c.Request.URL.Path,
-						zap.Any("error", err),
-						zap.String("request", string(httpRequest)),
+						"error", err,
+						"request", string(httpRequest),
 					)
 					// If the connection is dead, we can't write a status to it.
 					c.Error(err.(error)) // nolint: errcheck
@@ -51,15 +50,15 @@ func Recovery(stack bool) gin.HandlerFunc {
 				if stack {
 					logger.Error(
 						"[Recovery from panic]",
-						zap.Any("error", err),
-						zap.String("request", string(httpRequest)),
-						zap.String("stack", string(debug.Stack())),
+						"error", err,
+						"request", string(httpRequest),
+						"stack", string(debug.Stack()),
 					)
 				} else {
 					logger.Error(
 						"[Recovery from panic]",
-						zap.Any("error", err),
-						zap.String("request", string(httpRequest)),
+						"error", err,
+						"request", string(httpRequest),
 					)
 				}
 

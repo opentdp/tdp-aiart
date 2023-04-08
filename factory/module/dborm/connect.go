@@ -12,14 +12,14 @@ var Db *gorm.DB
 func Connect() {
 
 	config := &gorm.Config{
-		Logger: NewLogger(),
+		Logger: newLogger(),
 		NamingStrategy: schema.NamingStrategy{
 			SingularTable: true,
 		},
 	}
 
 	if db, err := gorm.Open(dialector(), config); err != nil {
-		logman.Fatal("Connect to databse error:", err)
+		logman.Fatal("Connect to databse failed", "error", err)
 	} else {
 		Db = db
 	}

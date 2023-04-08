@@ -1,3 +1,6 @@
+database:
+    name: server.db
+    type: sqlite
 dataset:
     dir: ../var
     secret: RQ2ngzuFn4JzGf936zkrqeUp45a3fGMg
@@ -5,6 +8,7 @@ logger:
     dir: ../var
     level: info
     stdout: true
+    target: stdout
     tofile: false
 server:
     dsn: server.db

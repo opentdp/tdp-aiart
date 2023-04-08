@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"time"
 
-	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
@@ -15,10 +14,10 @@ import (
 
 type LogWrap struct {
 	config *logger.Config
-	logger *zap.Logger
+	logger *logman.Logger
 }
 
-func NewLogger() logger.Interface {
+func newLogger() logger.Interface {
 
 	logger.Default = &LogWrap{
 		logger: logman.Named("gorm"),
@@ -41,19 +40,19 @@ func (lw LogWrap) LogMode(level logger.LogLevel) logger.Interface {
 
 func (lw LogWrap) Info(ctx context.Context, msg string, args ...any) {
 
-	lw.logger.Info(msg, zap.Any("data", args))
+	lw.logger.Info(msg, "data", args)
 
 }
 
 func (lw LogWrap) Warn(ctx context.Context, msg string, args ...any) {
 
-	lw.logger.Warn(msg, zap.Any("data", args))
+	lw.logger.Warn(msg, "data", args)
 
 }
 
 func (lw LogWrap) Error(ctx context.Context, msg string, args ...any) {
 
-	lw.logger.Error(msg, zap.Any("data", args))
+	lw.logger.Error(msg, "data", args)
 
 }
 
@@ -63,18 +62,14 @@ func (lw LogWrap) Trace(ctx context.Context, begin time.Time, fc func() (string,
 	sql, rows := fc()
 	elapsed := time.Since(begin)
 
-	sqlZ := zap.String("sql", sql)
-	rowsZ := zap.Int64("rows", rows)
-	elapsedZ := zap.Duration("elapsed", elapsed)
-
 	switch {
 	case err != nil && (!errors.Is(err, gorm.ErrRecordNotFound) || !cfg.IgnoreRecordNotFoundError):
-		lw.logger.Error("trace error", zap.Error(err), elapsedZ, sqlZ, rowsZ)
+		lw.logger.Error("trace error", "error", err, "sql", sql, "rows", rows, "elapsed", elapsed)
 	case elapsed > cfg.SlowThreshold && cfg.SlowThreshold != 0:
 		slow := fmt.Sprintf("trace slow sql >= %v", cfg.SlowThreshold)
-		lw.logger.Warn(slow, elapsedZ, sqlZ, rowsZ)
+		lw.logger.Warn(slow, "sql", sql, "rows", rows, "elapsed", elapsed)
 	default:
-		lw.logger.Info("trace query", elapsedZ, sqlZ, rowsZ)
+		lw.logger.Info("trace query", "sql", sql, "rows", rows, "elapsed", elapsed)
 	}
 
 }

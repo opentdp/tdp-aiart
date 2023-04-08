@@ -2,6 +2,7 @@ package artimg
 
 import (
 	"tdp-aiart/module/dborm"
+	"tdp-aiart/module/model"
 )
 
 // 创建配置
@@ -15,7 +16,7 @@ type CreateParam struct {
 
 func Create(data *CreateParam) (uint, error) {
 
-	item := &dborm.Artimg{
+	item := &model.Artimg{
 		UserId:     data.UserId,
 		Subject:    data.Subject,
 		OutputFile: data.OutputFile,
@@ -41,10 +42,10 @@ type UpdateParam struct {
 func Update(data *UpdateParam) error {
 
 	result := dborm.Db.
-		Where(&dborm.Artimg{
+		Where(&model.Artimg{
 			Id: data.Id,
 		}).
-		Updates(dborm.Artimg{
+		Updates(model.Artimg{
 			UserId:     data.UserId,
 			Subject:    data.Subject,
 			OutputFile: data.OutputFile,
@@ -65,11 +66,11 @@ type DeleteParam struct {
 func Delete(data *DeleteParam) error {
 
 	result := dborm.Db.
-		Where(&dborm.Artimg{
+		Where(&model.Artimg{
 			Id:     data.Id,
 			UserId: data.UserId,
 		}).
-		Delete(&dborm.Artimg{})
+		Delete(&model.Artimg{})
 
 	return result.Error
 
@@ -82,12 +83,12 @@ type FetchParam struct {
 	UserId uint
 }
 
-func Fetch(data *FetchParam) (*dborm.Artimg, error) {
+func Fetch(data *FetchParam) (*model.Artimg, error) {
 
-	var item *dborm.Artimg
+	var item *model.Artimg
 
 	result := dborm.Db.
-		Where(&dborm.Artimg{
+		Where(&model.Artimg{
 			Id:     data.Id,
 			UserId: data.UserId,
 		}).
@@ -103,12 +104,12 @@ type FetchAllParam struct {
 	UserId uint
 }
 
-func FetchAll(data *FetchAllParam) ([]*dborm.Artimg, error) {
+func FetchAll(data *FetchAllParam) ([]*model.Artimg, error) {
 
-	var items []*dborm.Artimg
+	var items []*model.Artimg
 
 	result := dborm.Db.
-		Where(&dborm.Artimg{
+		Where(&model.Artimg{
 			UserId: data.UserId,
 		}).
 		Find(&items)
@@ -124,8 +125,8 @@ func Count(data *FetchAllParam) (int64, error) {
 	var count int64
 
 	result := dborm.Db.
-		Model(&dborm.Artimg{}).
-		Where(&dborm.Artimg{
+		Model(&model.Artimg{}).
+		Where(&model.Artimg{
 			UserId: data.UserId,
 		}).
 		Count(&count)

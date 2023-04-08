@@ -12,7 +12,7 @@ import (
 
 var rcmd = &cobra.Command{
 	Use:     "tdp-aiart",
-	Short:   "TDP Aiart",
+	Short:   args.AppName,
 	Long:    args.ReadmeText,
 	Version: args.Version,
 }

@@ -27,7 +27,7 @@ func v100001AddUser() error {
 		Password: "123456",
 		Level:    1,
 		AppKey:   strutil.Rand(32),
-		Email:    "admin@tdp.icu",
+		Email:    "admin@opentdp.org",
 		StoreKey: args.Dataset.Secret,
 	})
 
