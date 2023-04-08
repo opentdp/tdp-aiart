@@ -41,7 +41,7 @@ export default class AiartText extends Vue {
             return false
         }
         this.loading = true
-        const res = await NaApi.aiart.byText(this.formModel).finally(() => {
+        const res = await NaApi.aiart.createByText(this.formModel).finally(() => {
             this.loading = false
         })
         this.output = 'data:image/jpeg;base64,' + res.ResultImage

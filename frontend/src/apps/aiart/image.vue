@@ -43,7 +43,7 @@ export default class AiartImage extends Vue {
             return false
         }
         this.output = "", this.loading = true
-        const res = await NaApi.aiart.byImage(this.formModel).finally(() => {
+        const res = await NaApi.aiart.createByImage(this.formModel).finally(() => {
             this.loading = false
         })
         this.output = 'data:image/jpeg;base64,' + res.ResultImage
