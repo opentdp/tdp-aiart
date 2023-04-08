@@ -3,13 +3,18 @@ package model
 // 图片
 
 type Artimg struct {
-	Id         uint `gorm:"primaryKey"`
-	UserId     uint `gorm:"index"`
-	Subject    any  `gorm:"serializer:json"`
-	OutputFile string
-	Status     string
-	CreatedAt  int64
-	UpdatedAt  int64
+	Id             uint `gorm:"primaryKey"`
+	UserId         uint `gorm:"index"`
+	Subject        string
+	Prompt         string
+	NegativePrompt string
+	Styles         string
+	Strength       float64
+	InputFile      string
+	OutputFile     string
+	Status         string
+	CreatedAt      int64
+	UpdatedAt      int64
 }
 
 // 系统配置

@@ -24,7 +24,7 @@ export default class AiartText extends Vue {
     public formModel: IAiart.CreateImageRequest = {
         Prompt: "",
         NegativePrompt: "",
-        Styles: [],
+        Styles: ["000"],
         ResultConfig: {
             Resolution: "1024:768",
         },
@@ -33,6 +33,7 @@ export default class AiartText extends Vue {
 
     public formRules: FormRules<IAiart.CreateImageRequest> = {
         Prompt: [{ required: true }],
+        Styles: [{ required: true }],
     }
 
     async formSubmit(ctx: SubmitContext<TData>) {
@@ -61,9 +62,9 @@ export default class AiartText extends Vue {
         </t-breadcrumb>
 
         <t-card title="绘图参数" hover-shadow header-bordered>
-            <t-form ref="formRef" :data="formModel" :rules="formRules" label-width="120px" @submit="formSubmit">
+            <t-form ref="formRef" :data="formModel" :rules="formRules" label-width="90px" @submit="formSubmit">
                 <t-form-item name="Styles" label="绘画风格">
-                    <t-select v-model="formModel.Styles" :placeholder="meta.styleDesc" :max="2" multiple>
+                    <t-select v-model="formModel.Styles" :placeholder="meta.styleDesc" :max="3" multiple>
                         <t-option v-for="item in meta.textStyles" :key="item.value" :value="item.value"
                             :label="item.label" />
                     </t-select>

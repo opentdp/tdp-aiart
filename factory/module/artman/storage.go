@@ -48,9 +48,13 @@ func SaveObject(uid uint, result string, payload any) (uint, error) {
 
 	return artimg.Create(&artimg.CreateParam{
 		UserId:     uid,
-		Subject:    param,
+		Subject:    "智能绘画",
+		Prompt:     param.Prompt,
+		Styles:     strings.Join(param.Styles, ","),
+		Strength:   param.Strength,
+		InputFile:  param.InputImage,
 		OutputFile: outputFile,
-		Status:     "success",
+		Status:     "private",
 	})
 
 }

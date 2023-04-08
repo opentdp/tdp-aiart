@@ -29,7 +29,7 @@ export const imageStyles = [
     { value: '203', label: '唯美古风' },
 ]
 
-export const styleDesc = `推荐使用且只使用一种风格，不指定则默认为日系动漫风格`
+export const styleDesc = `还可以在描述中说明想要的风格`
 
 export const promptDesc = `建议详细描述画面主体、细节、场景等，文本描述越丰富，生成效果越精美，推荐使用中文`
 

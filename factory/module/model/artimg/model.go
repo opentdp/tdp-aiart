@@ -8,19 +8,29 @@ import (
 // 创建配置
 
 type CreateParam struct {
-	UserId     uint `binding:"required"`
-	Subject    any  `binding:"required"`
-	OutputFile string
-	Status     string
+	UserId         uint `binding:"required"`
+	Subject        string
+	Prompt         string
+	NegativePrompt string
+	Styles         string
+	Strength       float64
+	InputFile      string
+	OutputFile     string
+	Status         string
 }
 
 func Create(data *CreateParam) (uint, error) {
 
 	item := &model.Artimg{
-		UserId:     data.UserId,
-		Subject:    data.Subject,
-		OutputFile: data.OutputFile,
-		Status:     data.Status,
+		UserId:         data.UserId,
+		Subject:        data.Subject,
+		Prompt:         data.Prompt,
+		NegativePrompt: data.NegativePrompt,
+		Styles:         data.Styles,
+		Strength:       data.Strength,
+		InputFile:      data.InputFile,
+		OutputFile:     data.OutputFile,
+		Status:         data.Status,
 	}
 
 	result := dborm.Db.Create(item)
@@ -32,11 +42,10 @@ func Create(data *CreateParam) (uint, error) {
 // 更新配置
 
 type UpdateParam struct {
-	Id         uint
-	UserId     uint
-	Subject    any
-	OutputFile string
-	Status     string
+	Id      uint
+	UserId  uint
+	Subject string
+	Status  string
 }
 
 func Update(data *UpdateParam) error {
@@ -46,10 +55,9 @@ func Update(data *UpdateParam) error {
 			Id: data.Id,
 		}).
 		Updates(model.Artimg{
-			UserId:     data.UserId,
-			Subject:    data.Subject,
-			OutputFile: data.OutputFile,
-			Status:     data.Status,
+			UserId:  data.UserId,
+			Subject: data.Subject,
+			Status:  data.Status,
 		})
 
 	return result.Error
@@ -81,6 +89,7 @@ func Delete(data *DeleteParam) error {
 type FetchParam struct {
 	Id     uint
 	UserId uint
+	Status string
 }
 
 func Fetch(data *FetchParam) (*model.Artimg, error) {
@@ -91,6 +100,7 @@ func Fetch(data *FetchParam) (*model.Artimg, error) {
 		Where(&model.Artimg{
 			Id:     data.Id,
 			UserId: data.UserId,
+			Status: data.Status,
 		}).
 		First(&item)
 
@@ -102,6 +112,7 @@ func Fetch(data *FetchParam) (*model.Artimg, error) {
 
 type FetchAllParam struct {
 	UserId uint
+	Status string
 }
 
 func FetchAll(data *FetchAllParam) ([]*model.Artimg, error) {
@@ -111,6 +122,7 @@ func FetchAll(data *FetchAllParam) ([]*model.Artimg, error) {
 	result := dborm.Db.
 		Where(&model.Artimg{
 			UserId: data.UserId,
+			Status: data.Status,
 		}).
 		Find(&items)
 

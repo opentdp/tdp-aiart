@@ -25,7 +25,7 @@ export default class AiartImage extends Vue {
     public formModel: IAiart.CreateImageRequest = {
         Prompt: "",
         NegativePrompt: "",
-        Styles: [],
+        Styles: ["000"],
         InputImage: "",
         Strength: 65,
         ResultConfig: {
@@ -36,6 +36,7 @@ export default class AiartImage extends Vue {
 
     public formRules: FormRules<IAiart.CreateImageRequest> = {
         InputImage: [{ required: true }],
+        Styles: [{ required: true }],
     }
 
     async formSubmit(ctx: SubmitContext<TData>) {
@@ -45,11 +46,11 @@ export default class AiartImage extends Vue {
         }
         this.output = ""
         this.loading = true
-        const query = { ...this.formModel }
-        if (query.Strength) {
-            query.Strength = query.Strength / 100
+        const query = {
+            ...this.formModel,
+            Strength: this.formModel.Strength ? this.formModel.Strength / 100 : 0.65
         }
-        const res = await NaApi.aiart.create(this.formModel).finally(() => {
+        const res = await NaApi.aiart.create(query).finally(() => {
             this.loading = false
         })
         this.output = 'data:image/jpeg;base64,' + res.ResultImage
@@ -123,7 +124,7 @@ export default class AiartImage extends Vue {
         </t-breadcrumb>
 
         <t-card title="绘图参数" hover-shadow header-bordered>
-            <t-form ref="formRef" :data="formModel" :rules="formRules" label-width="120px" @submit="formSubmit">
+            <t-form ref="formRef" :data="formModel" :rules="formRules" label-width="90px" @submit="formSubmit">
                 <t-form-item name="Styles" label="绘画风格">
                     <t-select v-model="formModel.Styles" :placeholder="meta.styleDesc" :max="2" multiple>
                         <t-option v-for="item in meta.imageStyles" :key="item.value" :value="item.value"
