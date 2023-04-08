@@ -6,9 +6,13 @@ type ReqeustParams struct {
 }
 
 type ImagePayload struct {
-	TextPayload
-	InputImage string
-	InputUrl   string
+	Prompt         string
+	NegativePrompt string
+	InputImage     string
+	Styles         []string
+	Strength       float64
+	ResultConfig   any
+	LogoAdd        int64
 }
 
 type TextPayload struct {
@@ -17,5 +21,4 @@ type TextPayload struct {
 	Styles         []string
 	ResultConfig   any
 	LogoAdd        int64
-	Strength       float64
 }

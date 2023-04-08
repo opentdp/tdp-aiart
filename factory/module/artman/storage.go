@@ -22,7 +22,7 @@ func SaveObject(uid uint, result string, payload any) (uint, error) {
 
 	// 解析输入参数
 
-	param := ImagePayload{}
+	param := &ImagePayload{}
 	if mapstructure.Decode(payload, &param) != nil {
 		return 0, errors.New("参数解析失败")
 	}
