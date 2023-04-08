@@ -10,12 +10,19 @@ func Router(api *gin.RouterGroup) {
 
 	rg := api.Group("/aiart")
 
+	{
+		rg.POST("/list", list)
+	}
+
 	// 需授权接口
 
 	rg.Use(midware.AuthGuard())
 
 	{
 		rg.POST("/create", create)
+		rg.POST("/detail", detail)
+		rg.POST("/update", update)
+		rg.POST("/delete", delete)
 	}
 
 }
