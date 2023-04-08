@@ -22,18 +22,19 @@ export default class AiartImage extends Vue {
     @Ref
     public formRef!: FormInstanceFunctions
 
-    public formModel: IAiart.ImageToImageRequest = {
-        InputImage: "",
+    public formModel: IAiart.CreateImageRequest = {
         Prompt: "",
         NegativePrompt: "",
         Styles: [],
-        LogoAdd: 0,
+        InputImage: "",
+        Strength: 65,
         ResultConfig: {
             Resolution: "1024:768",
         },
+        LogoAdd: 0,
     }
 
-    public formRules: FormRules<IAiart.ImageToImageRequest> = {
+    public formRules: FormRules<IAiart.CreateImageRequest> = {
         InputImage: [{ required: true }],
     }
 
@@ -42,8 +43,13 @@ export default class AiartImage extends Vue {
             Api.msg.err("请检查表单")
             return false
         }
-        this.output = "", this.loading = true
-        const res = await NaApi.aiart.createByImage(this.formModel).finally(() => {
+        this.output = ""
+        this.loading = true
+        const query = { ...this.formModel }
+        if (query.Strength) {
+            query.Strength = query.Strength / 100
+        }
+        const res = await NaApi.aiart.create(this.formModel).finally(() => {
             this.loading = false
         })
         this.output = 'data:image/jpeg;base64,' + res.ResultImage
@@ -139,6 +145,10 @@ export default class AiartImage extends Vue {
                     <t-textarea v-model="formModel.NegativePrompt" :autosize="{ minRows: 3, maxRows: 15 }" :maxlength="512"
                         :placeholder="meta.negativePromptDesc" />
                 </t-form-item>
+                <t-form-item name="Strength" label="生成自由度" help="值越小，生成图和原图越接近">
+                    <t-slider v-model="formModel.Strength" :show-tooltip="true" :max="100" :min="0" />
+                </t-form-item>
+                <br>
                 <t-form-item name="InputImage" label="输入图片">
                     <t-space v-if="imageOrigin">
                         <vueCropper ref="cropper" class="cropper" mode="cover" output-type="png" :img="imageOrigin"

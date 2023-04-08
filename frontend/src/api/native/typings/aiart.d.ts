@@ -1,25 +1,7 @@
 /**
- * ImageToImage请求参数结构体
+ * 请求参数结构体
  */
-export interface ImageToImageRequest extends TextToImageRequest {
-  /**
-    * 输入图 Base64 数据。
-      算法将根据输入的图片，结合文本描述智能生成与之相关的图像。
-      Base64 和 Url 必须提供一个，如果都提供以 Base64 为准。
-      图片限制：单边分辨率小于2000，转成 Base64 字符串后小于 5MB。
-    */
-  InputImage?: string;
-  /**
-    * 生成自由度。
-      Strength 值越小，生成图和原图越接近。取值范围0~1，不传默认为0.6。
-    */
-  Strength?: number;
-}
-
-/**
- * TextToImage请求参数结构体
- */
-export interface TextToImageRequest {
+export interface CreateImageRequest {
   /**
     * 文本描述。
       算法将根据输入的文本智能生成与之相关的图像。建议详细描述画面主体、细节、场景等，文本描述越丰富，生成效果越精美。
@@ -36,6 +18,18 @@ export interface TextToImageRequest {
       如果想要探索风格列表之外的风格，也可以尝试在 Prompt 中输入其他的风格描述。
     */
   Styles?: Array<string>;
+  /**
+    * 输入图 Base64 数据。
+      算法将根据输入的图片，结合文本描述智能生成与之相关的图像。
+      Base64 和 Url 必须提供一个，如果都提供以 Base64 为准。
+      图片限制：单边分辨率小于2000，转成 Base64 字符串后小于 5MB。
+    */
+  InputImage?: string;
+  /**
+    * 生成自由度。仅 InputImage 不为空时有效。
+      Strength 值越小，生成图和原图越接近。取值范围0~1，不传默认为0.6。
+    */
+  Strength?: number;
   /**
     * 生成图结果的配置，包括输出图片分辨率和尺寸等。
     */

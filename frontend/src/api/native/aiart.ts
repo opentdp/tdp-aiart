@@ -1,37 +1,35 @@
 import { HttpClient } from "@/api/basic/http"
 
-import { ImageToImageRequest, TextToImageRequest } from "./typings/aiart"
+import { CreateImageRequest } from "./typings/aiart"
 
 export class AiartModel extends HttpClient {
-    public list(rq: { Module?: string }): Promise<AiartPaged> {
-        return this.post("/Aiart/list", rq)
+    public list(rq: { UserId?: string }): Promise<AiartPaged> {
+        return this.post("/aiart/list", rq)
     }
 
-    public detail(name: string): Promise<AiartDetail> {
-        return this.post("/Aiart/detail", { name: name })
+    public detail(id: number): Promise<AiartDetail> {
+        return this.post("/aiart/detail", { Id: id })
     }
 
-    public createByText(query: TextToImageRequest): Promise<{ ResultImage: string }> {
-        return this.post("/aiart/create", { Action: "TextToImage", Payload: query })
-    }
-
-    public createByImage(query: ImageToImageRequest): Promise<{ ResultImage: string }> {
-        return this.post("/aiart/create", { Action: "ImageToImage", Payload: query })
+    public create(query: CreateImageRequest): Promise<{ ResultImage: string }> {
+        const action = query.InputImage ? "ImageToImage" : "TextToImage"
+        return this.post("/aiart/create", { Action: action, Payload: query })
     }
 
     public update(rq: Partial<AiartItem>): Promise<null> {
-        return this.post("/Aiart/update", rq)
+        return this.post("/aiart/update", rq)
     }
 
     public remove(id: number): Promise<null> {
-        return this.post("/Aiart/delete", { Id: id })
+        return this.post("/aiart/delete", { Id: id })
     }
 }
 
 export interface AiartOrig {
     UserId: string
-    Payload: TextToImageRequest | ImageToImageRequest
+    Subject: CreateImageRequest
     OutputFile: string
+    Status: string
 }
 
 export interface AiartItem extends AiartOrig {

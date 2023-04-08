@@ -21,17 +21,17 @@ export default class AiartText extends Vue {
     @Ref
     public formRef!: FormInstanceFunctions
 
-    public formModel: IAiart.TextToImageRequest = {
+    public formModel: IAiart.CreateImageRequest = {
         Prompt: "",
         NegativePrompt: "",
         Styles: [],
-        LogoAdd: 0,
         ResultConfig: {
             Resolution: "1024:768",
         },
+        LogoAdd: 0,
     }
 
-    public formRules: FormRules<IAiart.TextToImageRequest> = {
+    public formRules: FormRules<IAiart.CreateImageRequest> = {
         Prompt: [{ required: true }],
     }
 
@@ -41,7 +41,7 @@ export default class AiartText extends Vue {
             return false
         }
         this.loading = true
-        const res = await NaApi.aiart.createByText(this.formModel).finally(() => {
+        const res = await NaApi.aiart.create(this.formModel).finally(() => {
             this.loading = false
         })
         this.output = 'data:image/jpeg;base64,' + res.ResultImage
