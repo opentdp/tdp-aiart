@@ -65,8 +65,8 @@ export default class ConfigUpdate extends Vue {
             <t-form-item name="Value" label="参数值">
                 <template v-if="formModel.Type == 'bool'">
                     <t-radio-group v-model="formModel.Value">
-                        <t-radio-button value="true" label="是" />
-                        <t-radio-button value="false" label="否" />
+                        <t-radio value="true" label="是" />
+                        <t-radio value="false" label="否" />
                     </t-radio-group>
                 </template>
                 <template v-else-if="formModel.Type == 'text'">
