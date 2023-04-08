@@ -2,13 +2,15 @@ package aiart
 
 import (
 	"github.com/gin-gonic/gin"
+
+	"tdp-aiart/module/artman"
 )
 
 func create(c *gin.Context) {
 
 	// 构造参数
 
-	param := &ReqeustParams{}
+	param := &artman.ReqeustParams{}
 
 	if err := c.ShouldBindJSON(param); err != nil {
 		c.Set("Error", err)
@@ -17,7 +19,7 @@ func create(c *gin.Context) {
 
 	// 请求接口
 
-	res, err := apiProxy(param)
+	res, err := artman.TencentAiart(param)
 
 	if err != nil {
 		c.Set("Error", err)
@@ -26,7 +28,8 @@ func create(c *gin.Context) {
 
 	// 存储数据
 
-	saveObject(param.Payload, res)
+	userId := c.GetUint("UserId")
+	artman.SaveObject(userId, res.ResultImage, param.Payload)
 
 	// 输出数据
 

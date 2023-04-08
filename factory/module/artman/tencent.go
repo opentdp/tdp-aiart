@@ -1,4 +1,4 @@
-package aiart
+package artman
 
 import (
 	"errors"
@@ -9,7 +9,7 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
-func apiProxy(rq *ReqeustParams) (*ToImageResponse, error) {
+func TencentAiart(rq *ReqeustParams) (*TencentAiartResponse, error) {
 
 	// 获取密钥
 
@@ -35,7 +35,7 @@ func apiProxy(rq *ReqeustParams) (*ToImageResponse, error) {
 
 	// 解析参数
 
-	output := &ToImageResponse{}
+	output := &TencentAiartResponse{}
 
 	if err == nil {
 		err = mapstructure.Decode(resp, &output)
@@ -45,27 +45,7 @@ func apiProxy(rq *ReqeustParams) (*ToImageResponse, error) {
 
 }
 
-type ReqeustParams struct {
-	Action  string
-	Payload any
-}
-
-type ToImageResponse struct {
+type TencentAiartResponse struct {
 	RequestId   string
 	ResultImage string
-}
-
-type TextToImageRequest struct {
-	Prompt         string
-	NegativePrompt string
-	Styles         []string
-	ResultConfig   any
-	LogoAdd        int64
-	Strength       float64
-}
-
-type ImageToImageRequest struct {
-	TextToImageRequest
-	InputImage string
-	InputUrl   string
 }
