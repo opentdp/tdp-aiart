@@ -20,69 +20,62 @@ func SaveObject(uid uint, result string, payload any) (uint, error) {
 		return 0, errors.New("图片生成失败")
 	}
 
-	// 保存生成的图片
-
-	filePath, err := SaveBase64Image("", result)
-	if err != nil {
-		return 0, errors.New("图片保存失败")
-	}
-
 	// 解析输入参数
 
 	param := ImagePayload{}
-	err = mapstructure.Decode(payload, &param)
-	if err != nil {
+	if mapstructure.Decode(payload, &param) != nil {
 		return 0, errors.New("参数解析失败")
+	}
+
+	// 保存生成图片
+
+	outputFile := strings.ReplaceAll(uuid.NewString(), "-", "/") + ".jpg"
+	if SaveBase64Image(outputFile, result) != nil {
+		return 0, errors.New("图片保存失败")
 	}
 
 	// 保存原始图片
 
 	if param.InputImage != "" {
-		inputImagePath := filePath + "-input.png"
-		inputImageBase64 := strings.Split(param.InputImage, ",")[1]
-		if _, err := SaveBase64Image(inputImagePath, inputImageBase64); err == nil {
-			param.InputImage = strings.ReplaceAll(inputImagePath, args.Dataset.Dir, "")
+		imageBase64 := strings.Split(param.InputImage, ",")[1]
+		imagePath := strings.ReplaceAll(outputFile, ".jpg", "-input.png")
+		if SaveBase64Image(imagePath, imageBase64) == nil {
+			param.InputImage = imagePath
 		}
 	}
 
 	// 生成记录入库
 
-	outputImage := strings.ReplaceAll(filePath, args.Dataset.Dir, "")
-
 	return artimg.Create(&artimg.CreateParam{
 		UserId:     uid,
 		Subject:    param,
-		OutputFile: outputImage,
+		OutputFile: outputFile,
 		Status:     "success",
 	})
 
 }
 
-func SaveBase64Image(filePath, base64Image string) (string, error) {
+func SaveBase64Image(filePath, base64Image string) error {
 
-	if filePath == "" {
-		fileName := strings.ReplaceAll(uuid.NewString(), "-", "/")
-		filePath = args.Dataset.Dir + "/upload/" + fileName + ".jpg"
-	}
-
+	filePath = args.Dataset.Dir + "/upload/" + filePath
 	os.MkdirAll(path.Dir(filePath), 0755) // 递归创建目录
 
 	imageBytes, err := base64.StdEncoding.DecodeString(base64Image)
 	if err != nil {
-		return "", err
+		return err
 	}
 
 	file, err := os.Create(filePath)
 	if err != nil {
-		return "", err
+		return err
 	}
 	defer file.Close()
 
 	_, err = file.Write(imageBytes)
 	if err != nil {
-		return "", err
+		return err
 	}
 
-	return filePath, nil
+	return nil
 
 }
