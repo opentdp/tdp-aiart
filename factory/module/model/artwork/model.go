@@ -1,4 +1,4 @@
-package artimg
+package artwork
 
 import (
 	"tdp-aiart/module/dborm"
@@ -21,7 +21,7 @@ type CreateParam struct {
 
 func Create(data *CreateParam) (uint, error) {
 
-	item := &model.Artimg{
+	item := &model.Artwork{
 		UserId:         data.UserId,
 		Subject:        data.Subject,
 		Prompt:         data.Prompt,
@@ -51,10 +51,10 @@ type UpdateParam struct {
 func Update(data *UpdateParam) error {
 
 	result := dborm.Db.
-		Where(&model.Artimg{
+		Where(&model.Artwork{
 			Id: data.Id,
 		}).
-		Updates(model.Artimg{
+		Updates(model.Artwork{
 			UserId:  data.UserId,
 			Subject: data.Subject,
 			Status:  data.Status,
@@ -74,11 +74,11 @@ type DeleteParam struct {
 func Delete(data *DeleteParam) error {
 
 	result := dborm.Db.
-		Where(&model.Artimg{
+		Where(&model.Artwork{
 			Id:     data.Id,
 			UserId: data.UserId,
 		}).
-		Delete(&model.Artimg{})
+		Delete(&model.Artwork{})
 
 	return result.Error
 
@@ -92,12 +92,12 @@ type FetchParam struct {
 	Status string
 }
 
-func Fetch(data *FetchParam) (*model.Artimg, error) {
+func Fetch(data *FetchParam) (*model.Artwork, error) {
 
-	var item *model.Artimg
+	var item *model.Artwork
 
 	result := dborm.Db.
-		Where(&model.Artimg{
+		Where(&model.Artwork{
 			Id:     data.Id,
 			UserId: data.UserId,
 			Status: data.Status,
@@ -115,12 +115,12 @@ type FetchAllParam struct {
 	Status string
 }
 
-func FetchAll(data *FetchAllParam) ([]*model.Artimg, error) {
+func FetchAll(data *FetchAllParam) ([]*model.Artwork, error) {
 
-	var items []*model.Artimg
+	var items []*model.Artwork
 
 	result := dborm.Db.
-		Where(&model.Artimg{
+		Where(&model.Artwork{
 			UserId: data.UserId,
 			Status: data.Status,
 		}).
@@ -137,8 +137,8 @@ func Count(data *FetchAllParam) (int64, error) {
 	var count int64
 
 	result := dborm.Db.
-		Model(&model.Artimg{}).
-		Where(&model.Artimg{
+		Model(&model.Artwork{}).
+		Where(&model.Artwork{
 			UserId: data.UserId,
 		}).
 		Count(&count)

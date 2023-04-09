@@ -1,7 +1,7 @@
 package passport
 
 import (
-	"tdp-aiart/module/model/artimg"
+	"tdp-aiart/module/model/artwork"
 	"tdp-aiart/module/model/user"
 )
 
@@ -9,12 +9,12 @@ import (
 
 func Summary(userId uint) map[string]any {
 
-	artimgCount, _ := artimg.Count(&artimg.FetchAllParam{UserId: userId})
+	artworkCount, _ := artwork.Count(&artwork.FetchAllParam{UserId: userId})
 	userInfo, _ := user.Fetch(&user.FetchParam{Id: userId})
 
 	return map[string]any{
-		"Artimg":      artimgCount,
-		"QuotaArtimg": userInfo.QuotaArtimg,
+		"Artwork":      artworkCount,
+		"ArtworkQuota": userInfo.ArtworkQuota,
 	}
 
 }

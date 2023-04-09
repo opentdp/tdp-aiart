@@ -1,4 +1,4 @@
-package artman
+package painter
 
 import (
 	"encoding/base64"
@@ -8,30 +8,21 @@ import (
 	"strings"
 
 	"github.com/google/uuid"
-	"github.com/mitchellh/mapstructure"
 
 	"tdp-aiart/cmd/args"
-	"tdp-aiart/module/model/artimg"
 )
 
-func SaveObject(uid uint, result string, payload any) (uint, error) {
+func saveObject(param *ReqeustParam, base64Image string) (*ResponseData, error) {
 
-	if result == "" {
-		return 0, errors.New("图片生成失败")
-	}
-
-	// 解析输入参数
-
-	param := &ImagePayload{}
-	if mapstructure.Decode(payload, &param) != nil {
-		return 0, errors.New("参数解析失败")
+	if base64Image == "" {
+		return nil, errors.New("图片生成失败")
 	}
 
 	// 保存生成图片
 
 	outputFile := strings.ReplaceAll(uuid.NewString(), "-", "/") + ".jpg"
-	if SaveBase64Image(outputFile, result) != nil {
-		return 0, errors.New("图片保存失败")
+	if saveBase64Image(outputFile, base64Image) != nil {
+		return nil, errors.New("图片保存失败")
 	}
 
 	// 保存原始图片
@@ -39,27 +30,23 @@ func SaveObject(uid uint, result string, payload any) (uint, error) {
 	if param.InputImage != "" {
 		imageBase64 := strings.Split(param.InputImage, ",")[1]
 		imagePath := strings.ReplaceAll(outputFile, ".jpg", "-input.png")
-		if SaveBase64Image(imagePath, imageBase64) == nil {
+		if saveBase64Image(imagePath, imageBase64) == nil {
 			param.InputImage = imagePath
 		}
 	}
 
-	// 生成记录入库
+	// 返回结果
 
-	return artimg.Create(&artimg.CreateParam{
-		UserId:     uid,
-		Subject:    "智能绘画",
-		Prompt:     param.Prompt,
-		Styles:     strings.Join(param.Styles, ","),
-		Strength:   param.Strength,
+	result := &ResponseData{
 		InputFile:  param.InputImage,
 		OutputFile: outputFile,
-		Status:     "private",
-	})
+	}
+
+	return result, nil
 
 }
 
-func SaveBase64Image(filePath, base64Image string) error {
+func saveBase64Image(filePath, base64Image string) error {
 
 	filePath = args.Dataset.Dir + "/upload/" + filePath
 	os.MkdirAll(path.Dir(filePath), 0755) // 递归创建目录

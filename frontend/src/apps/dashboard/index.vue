@@ -32,13 +32,13 @@ export default class DashboardIndex extends Vue {
         <t-space fixed direction="vertical">
             <p>欢迎使用智能绘画平台，画图能力基于腾讯云<b>Aiart</b>接口实现</p>
             <t-space v-if="summary" fixed break-line>
-                <t-card v-route="'/aiart/list'" class="summary" hover-shadow>
+                <t-card v-route="'/artwork/list'" class="summary" hover-shadow>
                     <div>图库</div>
-                    <b>{{ summary.Artimg }}</b>
+                    <b>{{ summary.Artwork }}</b>
                 </t-card>
                 <t-card class="summary" hover-shadow>
                     <div>配额</div>
-                    <b>{{ summary.QuotaArtimg }}</b>
+                    <b>{{ summary.ArtworkQuota }}</b>
                 </t-card>
             </t-space>
         </t-space>

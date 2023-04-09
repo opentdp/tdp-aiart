@@ -1,13 +1,13 @@
 import { CacheModel } from "./cache"
 
-import { AiartModel } from "./aiart"
+import { ArtworkModel } from "./artwork"
 import { ConfigModel } from "./config"
 import { PassportModel } from "./passport"
 
 export default {
     cache: new CacheModel(),
 
-    aiart: new AiartModel(),
+    artwork: new ArtworkModel(),
     config: new ConfigModel(),
     passport: new PassportModel(),
 }

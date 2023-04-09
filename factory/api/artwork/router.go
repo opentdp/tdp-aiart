@@ -1,4 +1,4 @@
-package artimg
+package artwork
 
 import (
 	"github.com/gin-gonic/gin"
@@ -8,7 +8,7 @@ import (
 
 func Router(api *gin.RouterGroup) {
 
-	rg := api.Group("/aiart")
+	rg := api.Group("/artwork")
 
 	{
 		rg.POST("/list", list)

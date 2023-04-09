@@ -3,7 +3,7 @@ import { Component, Vue } from "vue-facing-decorator"
 import { VueFlexWaterfall } from "vue-flex-waterfall"
 
 import { NaApi } from "@/api"
-import { AiartItem } from "@/api/native/aiart"
+import { ArtworkItem } from "@/api/native/artwork"
 
 import sessionStore from "@/store/session"
 
@@ -12,7 +12,7 @@ import sessionStore from "@/store/session"
         VueFlexWaterfall,
     },
 })
-export default class AiartList extends Vue {
+export default class ArtworkList extends Vue {
     public session = sessionStore()
 
     public created() {
@@ -21,10 +21,10 @@ export default class AiartList extends Vue {
 
     // 获取图片列表
 
-    public images: AiartItem[] = []
+    public images: ArtworkItem[] = []
 
     async getImages() {
-        const res = await NaApi.aiart.list({
+        const res = await NaApi.artwork.list({
             UserId: this.session.UserId
         })
         this.images = res.Items

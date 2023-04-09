@@ -3,7 +3,7 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 
-	"tdp-aiart/api/artimg"
+	"tdp-aiart/api/artwork"
 	"tdp-aiart/api/config"
 	"tdp-aiart/api/passport"
 	"tdp-aiart/api/user"
@@ -18,7 +18,7 @@ func Router(engine *gin.Engine) {
 	api.Use(midware.OutputHandle())
 
 	{
-		artimg.Router(api)
+		artwork.Router(api)
 		config.Router(api)
 		passport.Router(api)
 		user.Router(api)

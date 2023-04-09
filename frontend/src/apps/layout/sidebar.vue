@@ -73,17 +73,17 @@ const menuItems: MenuItem[] = [
     },
     {
         icon: "gift",
-        index: "/aiart/list",
+        index: "/artwork/list",
         title: "图库",
     },
     {
         icon: "server",
-        index: "/aiart/text",
+        index: "/artwork/create",
         title: "文生图",
     },
     {
         icon: "image",
-        index: "/aiart/image",
+        index: "/artwork/create2",
         title: "图生图",
     },
     {

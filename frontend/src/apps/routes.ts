@@ -35,31 +35,31 @@ export const routes: RouteRecordRaw[] = [
             },
             //////
             {
-                path: "/aiart/list",
-                name: "aiart-list",
+                path: "/artwork/list",
+                name: "artwork-list",
                 meta: {
                     title: "图库",
                     login: true,
                 },
-                component: () => import("./aiart/list.vue"),
+                component: () => import("./artwork/list.vue"),
             },
             {
-                path: "/aiart/text",
-                name: "aiart-text",
+                path: "/artwork/create",
+                name: "artwork-create",
                 meta: {
                     title: "文生图",
                     login: true,
                 },
-                component: () => import("./aiart/text.vue"),
+                component: () => import("./artwork/create.vue"),
             },
             {
-                path: "/aiart/image",
-                name: "aiart-image",
+                path: "/artwork/create2",
+                name: "artwork-create2",
                 meta: {
                     title: "图生图",
                     login: true,
                 },
-                component: () => import("./aiart/image.vue"),
+                component: () => import("./artwork/create2.vue"),
             },
             //////
             {

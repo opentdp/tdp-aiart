@@ -62,6 +62,6 @@ export interface UserUpdate {
 }
 
 export interface UserSummary {
-    Artimg: number
-    QuotaArtimg: number
+    Artwork: number
+    ArtworkQuota: number
 }

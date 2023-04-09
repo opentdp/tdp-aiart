@@ -1,17 +1,19 @@
-package artimg
+package artwork
 
 import (
+	"strings"
+
 	"github.com/gin-gonic/gin"
 
-	"tdp-aiart/module/artman"
-	"tdp-aiart/module/model/artimg"
+	"tdp-aiart/module/model/artwork"
+	"tdp-aiart/module/painter"
 )
 
 // 图片列表
 
 func list(c *gin.Context) {
 
-	var rq *artimg.FetchAllParam
+	var rq *artwork.FetchAllParam
 
 	if err := c.ShouldBind(&rq); err != nil {
 		c.Set("Error", err)
@@ -22,7 +24,7 @@ func list(c *gin.Context) {
 		rq.Status = "public"
 	}
 
-	if lst, err := artimg.FetchAll(rq); err == nil {
+	if lst, err := artwork.FetchAll(rq); err == nil {
 		c.Set("Payload", gin.H{"Items": lst})
 	} else {
 		c.Set("Error", err)
@@ -34,7 +36,7 @@ func list(c *gin.Context) {
 
 func detail(c *gin.Context) {
 
-	var rq *artimg.FetchParam
+	var rq *artwork.FetchParam
 
 	if err := c.ShouldBind(&rq); err != nil {
 		c.Set("Error", err)
@@ -48,7 +50,7 @@ func detail(c *gin.Context) {
 
 	rq.UserId = c.GetUint("UserId")
 
-	if res, err := artimg.Fetch(rq); err == nil {
+	if res, err := artwork.Fetch(rq); err == nil {
 		c.Set("Payload", gin.H{"Item": res})
 	} else {
 		c.Set("Error", err)
@@ -62,7 +64,7 @@ func create(c *gin.Context) {
 
 	// 构造参数
 
-	param := &artman.ReqeustParams{}
+	param := &painter.ReqeustParam{}
 
 	if err := c.ShouldBindJSON(param); err != nil {
 		c.Set("Error", err)
@@ -71,7 +73,7 @@ func create(c *gin.Context) {
 
 	// 请求接口
 
-	res, err := artman.TencentAiart(param)
+	res, err := painter.Create(param)
 
 	if err != nil {
 		c.Set("Error", err)
@@ -80,12 +82,24 @@ func create(c *gin.Context) {
 
 	// 存储数据
 
-	userId := c.GetUint("UserId")
-	artman.SaveObject(userId, res.ResultImage, param.Payload)
+	rq := &artwork.CreateParam{
+		UserId:         c.GetUint("UserId"),
+		Subject:        param.Subject,
+		Prompt:         param.Prompt,
+		NegativePrompt: param.NegativePrompt,
+		Styles:         strings.Join(param.Styles, ","),
+		Strength:       param.Strength,
+		InputFile:      res.InputFile,
+		OutputFile:     res.OutputFile,
+		Status:         param.Status,
+	}
 
-	// 输出数据
-
-	c.Set("Payload", res)
+	if id, err := artwork.Create(rq); err == nil {
+		c.Set("Payload", gin.H{"Id": id, "OutputFile": res.OutputFile})
+		c.Set("Message", "添加成功")
+	} else {
+		c.Set("Error", err)
+	}
 
 }
 
@@ -93,7 +107,7 @@ func create(c *gin.Context) {
 
 func update(c *gin.Context) {
 
-	var rq *artimg.UpdateParam
+	var rq *artwork.UpdateParam
 
 	if err := c.ShouldBind(&rq); err != nil {
 		c.Set("Error", err)
@@ -107,7 +121,7 @@ func update(c *gin.Context) {
 
 	rq.UserId = c.GetUint("UserId")
 
-	if err := artimg.Update(rq); err == nil {
+	if err := artwork.Update(rq); err == nil {
 		c.Set("Message", "修改成功")
 	} else {
 		c.Set("Error", err)
@@ -119,7 +133,7 @@ func update(c *gin.Context) {
 
 func delete(c *gin.Context) {
 
-	var rq *artimg.DeleteParam
+	var rq *artwork.DeleteParam
 
 	if err := c.ShouldBind(&rq); err != nil {
 		c.Set("Error", err)
@@ -133,7 +147,7 @@ func delete(c *gin.Context) {
 
 	rq.UserId = c.GetUint("UserId")
 
-	if err := artimg.Delete(rq); err == nil {
+	if err := artwork.Delete(rq); err == nil {
 		c.Set("Message", "删除成功")
 	} else {
 		c.Set("Error", err)

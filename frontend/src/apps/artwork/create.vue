@@ -4,13 +4,13 @@ import { Ref, Component, Vue } from "vue-facing-decorator"
 import { FormInstanceFunctions, FormRules, SubmitContext, Data as TData } from "tdesign-vue-next"
 
 import Api, { NaApi } from "@/api"
-import * as IAiart from "@/api/native/typings/aiart"
+import * as IArtwork from "@/api/native/typings/artwork"
 
-import * as Metadata from "./metadata"
+import * as Tencent from "./provider/tencent"
 
 @Component
-export default class AiartText extends Vue {
-    public meta = Metadata
+export default class ArtworkCreate extends Vue {
+    public meta = Tencent
 
     public loading = false
 
@@ -21,7 +21,9 @@ export default class AiartText extends Vue {
     @Ref
     public formRef!: FormInstanceFunctions
 
-    public formModel: IAiart.CreateImageRequest = {
+    public formModel: IArtwork.CreateImageRequest = {
+        Action: "TextToImage",
+        Subject: "",
         Prompt: "",
         NegativePrompt: "",
         Styles: ["000"],
@@ -29,9 +31,11 @@ export default class AiartText extends Vue {
             Resolution: "1024:768",
         },
         LogoAdd: 0,
+        Status: "public",
     }
 
-    public formRules: FormRules<IAiart.CreateImageRequest> = {
+    public formRules: FormRules<IArtwork.CreateImageRequest> = {
+        Subject: [{ required: true }],
         Prompt: [{ required: true }],
         Styles: [{ required: true }],
     }
@@ -42,10 +46,10 @@ export default class AiartText extends Vue {
             return false
         }
         this.loading = true
-        const res = await NaApi.aiart.create(this.formModel).finally(() => {
+        const res = await NaApi.artwork.create(this.formModel).finally(() => {
             this.loading = false
         })
-        this.output = 'data:image/jpeg;base64,' + res.ResultImage
+        this.output = "/upload/" + res.OutputFile
     }
 }
 </script>
@@ -63,6 +67,19 @@ export default class AiartText extends Vue {
 
         <t-card title="绘图参数" hover-shadow header-bordered>
             <t-form ref="formRef" :data="formModel" :rules="formRules" label-width="90px" @submit="formSubmit">
+                <t-form-item name="Subject" label="作品标题">
+                    <t-input v-model="formModel.Subject" placeholder="请输入标题或备注" />
+                </t-form-item>
+                <t-form-item name="Status" label="作品状态">
+                    <t-radio-group v-model="formModel.Status">
+                        <t-radio value="public">
+                            全站用户可见
+                        </t-radio>
+                        <t-radio value="private">
+                            仅自己可见
+                        </t-radio>
+                    </t-radio-group>
+                </t-form-item>
                 <t-form-item name="Styles" label="绘画风格">
                     <t-select v-model="formModel.Styles" :placeholder="meta.styleDesc" :max="3" multiple>
                         <t-option v-for="item in meta.textStyles" :key="item.value" :value="item.value"
