@@ -2,7 +2,7 @@
 import { Component, Vue } from "vue-facing-decorator"
 
 @Component
-export default class LayoutIndex extends Vue {
+export default class LayoutContent extends Vue {
 }
 </script>
 

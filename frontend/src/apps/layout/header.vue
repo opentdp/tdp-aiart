@@ -48,7 +48,7 @@ export default class LayoutHeader extends Vue {
                 value: "loginout",
                 onClick: () => {
                     this.session.$reset()
-                    this.$router.push({ name: "passport-login" })
+                    this.$router.push({ name: "home-index" })
                 }
             },
         ]

@@ -11,7 +11,7 @@ import Sidebar from "./sidebar.vue"
 @Component({
     components: { Header, Content, Footer, Sidebar }
 })
-export default class LayoutIndex extends Vue {
+export default class LayoutConsole extends Vue {
     public layout = layoutStore()
 }
 </script>
