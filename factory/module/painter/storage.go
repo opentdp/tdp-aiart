@@ -6,10 +6,10 @@ import (
 	"os"
 	"path"
 	"strings"
-
-	"github.com/google/uuid"
+	"time"
 
 	"tdp-aiart/cmd/args"
+	"tdp-aiart/helper/strutil"
 )
 
 func saveObject(param *ReqeustParam, base64Image string) (*ResponseData, error) {
@@ -18,9 +18,11 @@ func saveObject(param *ReqeustParam, base64Image string) (*ResponseData, error) 
 		return nil, errors.New("图片生成失败")
 	}
 
+	filePath := time.Now().Format("/2006/0102/1504/05")
+
 	// 保存生成图片
 
-	outputFile := strings.ReplaceAll(uuid.NewString(), "-", "/") + ".jpg"
+	outputFile := filePath + strutil.Rand(8) + ".jpg"
 	if saveBase64Image(outputFile, base64Image) != nil {
 		return nil, errors.New("图片保存失败")
 	}
@@ -28,8 +30,8 @@ func saveObject(param *ReqeustParam, base64Image string) (*ResponseData, error) 
 	// 保存原始图片
 
 	if param.InputImage != "" {
+		imagePath := filePath + strutil.Rand(8) + ".png"
 		imageBase64 := strings.Split(param.InputImage, ",")[1]
-		imagePath := strings.ReplaceAll(outputFile, ".jpg", "-input.png")
 		if saveBase64Image(imagePath, imageBase64) == nil {
 			param.InputImage = imagePath
 		}
@@ -48,7 +50,7 @@ func saveObject(param *ReqeustParam, base64Image string) (*ResponseData, error) 
 
 func saveBase64Image(filePath, base64Image string) error {
 
-	filePath = args.Dataset.Dir + "/upload/" + filePath
+	filePath = args.Dataset.Dir + "/upload" + filePath
 	os.MkdirAll(path.Dir(filePath), 0755) // 递归创建目录
 
 	imageBytes, err := base64.StdEncoding.DecodeString(base64Image)
