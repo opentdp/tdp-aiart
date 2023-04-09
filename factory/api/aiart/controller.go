@@ -18,7 +18,7 @@ func list(c *gin.Context) {
 		return
 	}
 
-	if rq.UserId != c.GetUint("UserId") {
+	if rq.UserId == 0 || rq.UserId != c.GetUint("UserId") {
 		rq.Status = "public"
 	}
 
