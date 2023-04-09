@@ -39,8 +39,8 @@ export default class ArtworkList extends Vue {
         <t-card v-for="item in images" :key="item.Id" class="item">
             <t-image :src="'/upload/' + item.OutputFile" />
             <template #footer>
-                <div v-if="item.InputFile">
-                    <b>图生图</b>
+                <div v-if="item.Subject">
+                    <b>{{ item.Subject }}</b>
                 </div>
                 <div v-if="item.Prompt">
                     <b>提示词：</b>{{ item.Prompt }}
