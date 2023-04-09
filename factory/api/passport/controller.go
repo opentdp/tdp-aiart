@@ -106,3 +106,14 @@ func profileUpdate(c *gin.Context) {
 	}
 
 }
+
+// 统计信息
+
+func summary(c *gin.Context) {
+
+	userId := c.GetUint("UserId")
+	res := passport.Summary(userId)
+
+	c.Set("Payload", res)
+
+}

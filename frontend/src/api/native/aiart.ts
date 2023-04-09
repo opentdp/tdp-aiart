@@ -3,7 +3,7 @@ import { HttpClient } from "@/api/basic/http"
 import { CreateImageRequest } from "./typings/aiart"
 
 export class AiartModel extends HttpClient {
-    public list(rq: { UserId?: string }): Promise<AiartPaged> {
+    public list(rq: AiartListParam): Promise<AiartPaged> {
         return this.post("/aiart/list", rq)
     }
 
@@ -27,7 +27,12 @@ export class AiartModel extends HttpClient {
 
 export interface AiartOrig {
     UserId: string
-    Subject: CreateImageRequest
+    Subject: string
+    Prompt: string
+    NegativePrompt: string
+    Styles: string
+    Strength: number
+    InputFile: string
     OutputFile: string
     Status: string
 }
@@ -36,6 +41,10 @@ export interface AiartItem extends AiartOrig {
     Id: number
     CreatedAt: number
     UpdatedAt: number
+}
+
+export interface AiartListParam {
+    UserId: number
 }
 
 export interface AiartDetail {

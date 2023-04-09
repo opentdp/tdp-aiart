@@ -2,29 +2,63 @@
 import { Component, Vue } from "vue-facing-decorator"
 
 import { NaApi } from "@/api"
-import { AiartItem } from "@/api/native/aiart"
+import { UserSummary } from "@/api/native/passport"
+
+import sessionStore from "@/store/session"
 
 @Component
 export default class DashboardIndex extends Vue {
+    public session = sessionStore()
+
+    // 初始化
 
     public created() {
-        this.getImages()
+        this.getUserSummary()
     }
 
-    // 获取图片列表
+    // 资源统计
 
-    public images: AiartItem[] = []
+    public summary!: UserSummary
 
-    async getImages() {
-        const res = await NaApi.aiart.list({})
-        this.images = res.Items
+    async getUserSummary() {
+        const res = await NaApi.passport.summary()
+        this.summary = res
     }
-
 }
 </script>
 
 <template>
-    <t-space fixed direction="vertical">
-        <p>使用腾讯云 <b>AiArt</b> 接口实现的智能绘画平台</p>
-    </t-space>
+    <t-card :loading="!summary" hover-shadow header-bordered>
+        <t-space fixed direction="vertical">
+            <p>欢迎使用智能绘画平台，画图能力基于腾讯云<b>Aiart</b>接口实现</p>
+            <t-space v-if="summary" fixed break-line>
+                <t-card v-route="'/aiart/list'" class="summary" hover-shadow>
+                    <div>图库</div>
+                    <b>{{ summary.Artimg }}</b>
+                </t-card>
+                <t-card class="summary" hover-shadow>
+                    <div>配额</div>
+                    <b>{{ summary.QuotaArtimg }}</b>
+                </t-card>
+            </t-space>
+        </t-space>
+    </t-card>
 </template>
+
+<style lang="scss" scoped>
+.summary {
+    min-width: 150px;
+    text-align: center;
+    background-color: var(--el-color-info-light-9);
+    color: var(--el-color-info-light-3);
+
+    div {
+        margin-bottom: 10px;
+    }
+
+    b {
+        color: var(--el-color-primary-dark-2);
+        font-size: 2em;
+    }
+}
+</style>

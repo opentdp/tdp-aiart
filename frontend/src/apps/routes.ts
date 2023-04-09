@@ -35,6 +35,15 @@ export const routes: RouteRecordRaw[] = [
             },
             //////
             {
+                path: "/aiart/list",
+                name: "aiart-list",
+                meta: {
+                    title: "图库",
+                    login: true,
+                },
+                component: () => import("./aiart/list.vue"),
+            },
+            {
                 path: "/aiart/text",
                 name: "aiart-text",
                 meta: {

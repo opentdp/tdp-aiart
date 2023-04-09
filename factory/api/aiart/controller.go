@@ -18,7 +18,9 @@ func list(c *gin.Context) {
 		return
 	}
 
-	// rq.UserId = c.GetUint("UserId")
+	if rq.UserId != c.GetUint("UserId") {
+		rq.Status = "public"
+	}
 
 	if lst, err := artimg.FetchAll(rq); err == nil {
 		c.Set("Payload", gin.H{"Items": lst})

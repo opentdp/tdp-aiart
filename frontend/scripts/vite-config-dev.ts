@@ -10,6 +10,9 @@ export const config: UserConfig = {
             "/api": {
                 target: "http://127.0.0.1:7700",
             },
+            "/upload": {
+                target: "http://127.0.0.1:7700",
+            },
         },
     },
 }

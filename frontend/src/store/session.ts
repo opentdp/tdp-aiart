@@ -4,6 +4,7 @@ import { LoginResult } from "@/api/native/passport"
 
 export default defineStore("session", {
     state: () => ({
+        UserId: 0,
         Username: "",
         Level: 0,
         AppId: "",
