@@ -2,6 +2,8 @@ package args
 
 import (
 	"log"
+	"path"
+	"path/filepath"
 
 	"github.com/spf13/viper"
 
@@ -44,6 +46,16 @@ func Load() {
 
 	Server.Listen = viper.GetString("server.listen")
 	Server.JwtKey = viper.GetString("server.jwtkey")
+
+	// 转换相对路径为 Dataset.Dir 开头的路径
+
+	if Database.Type == "sqlite" && !filepath.IsAbs(Database.Name) {
+		Database.Name = path.Join(Dataset.Dir, Database.Name)
+	}
+
+	if !filepath.IsAbs(Logger.Dir) {
+		Logger.Dir = path.Join(Dataset.Dir, Logger.Dir)
+	}
 
 }
 
