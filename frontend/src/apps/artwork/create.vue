@@ -72,12 +72,8 @@ export default class ArtworkCreate extends Vue {
                 </t-form-item>
                 <t-form-item name="Status" label="作品状态">
                     <t-radio-group v-model="formModel.Status">
-                        <t-radio value="public">
-                            全站用户可见
-                        </t-radio>
-                        <t-radio value="private">
-                            仅自己可见
-                        </t-radio>
+                        <t-radio value="public" lable="全站用户可见" />
+                        <t-radio value="private" lable="仅自己可见" />
                     </t-radio-group>
                 </t-form-item>
                 <t-form-item name="Styles" label="绘画风格">

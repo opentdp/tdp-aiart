@@ -16,14 +16,14 @@ export default class HomeIndex extends Vue {
     public session = sessionStore()
 
     public created() {
-        this.getImages()
+        this.getArtworkList()
     }
 
     // 获取图片列表
 
     public images: ArtworkItem[] = []
 
-    async getImages() {
+    async getArtworkList() {
         const res = await NaApi.artwork.list({
             UserId: 0
         })
