@@ -20,6 +20,9 @@ export default class UserUpdate extends Vue {
     public formModel!: UserOrig
 
     public formRules: FormRules<UserOrig> = {
+        Username: [
+            { required: true },
+        ],
         Email: [
             { required: true },
         ],
@@ -65,7 +68,7 @@ export default class UserUpdate extends Vue {
     <t-dialog v-model:visible="visible" destroy-on-close header="修改信息" :footer="false" width="600px">
         <t-form ref="formRef" :data="formModel" :rules="formRules" label-width="90px" @submit="formSubmit">
             <t-form-item name="Username" label="用户名">
-                <t-input v-model="formModel.Username" readonly />
+                <t-input v-model="formModel.Username" />
             </t-form-item>
             <t-form-item name="Email" label="邮箱">
                 <t-input v-model="formModel.Email" />
