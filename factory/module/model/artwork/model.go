@@ -3,12 +3,15 @@ package artwork
 import (
 	"tdp-aiart/module/dborm"
 	"tdp-aiart/module/model"
+
+	"gorm.io/gorm"
 )
 
-// 创建配置
+// 创建创作
 
 type CreateParam struct {
 	UserId         uint `binding:"required"`
+	Username       string
 	Subject        string
 	Prompt         string
 	NegativePrompt string
@@ -23,6 +26,7 @@ func Create(data *CreateParam) (uint, error) {
 
 	item := &model.Artwork{
 		UserId:         data.UserId,
+		Username:       data.Username,
 		Subject:        data.Subject,
 		Prompt:         data.Prompt,
 		NegativePrompt: data.NegativePrompt,
@@ -39,7 +43,7 @@ func Create(data *CreateParam) (uint, error) {
 
 }
 
-// 更新配置
+// 更新创作
 
 type UpdateParam struct {
 	Id      uint
@@ -52,10 +56,10 @@ func Update(data *UpdateParam) error {
 
 	result := dborm.Db.
 		Where(&model.Artwork{
-			Id: data.Id,
+			Id:     data.Id,
+			UserId: data.UserId,
 		}).
 		Updates(model.Artwork{
-			UserId:  data.UserId,
 			Subject: data.Subject,
 			Status:  data.Status,
 		})
@@ -64,7 +68,39 @@ func Update(data *UpdateParam) error {
 
 }
 
-// 删除配置
+// 更新创作热度
+
+type UpdateHeatParam struct {
+	Id         uint
+	Favorites  int
+	Recommends int
+}
+
+func UpdateHeat(data *UpdateHeatParam) error {
+
+	update := map[string]any{}
+
+	if data.Favorites > 0 {
+		update["favorites"] = gorm.Expr("favorites + ?", data.Favorites)
+	} else if data.Favorites < 0 {
+		update["favorites"] = gorm.Expr("favorites - ?", -data.Favorites)
+	}
+
+	if data.Recommends > 0 {
+		update["recommends"] = gorm.Expr("recommends + ?", data.Recommends)
+	} else if data.Recommends < 0 {
+		update["recommends"] = gorm.Expr("recommends - ?", -data.Recommends)
+	}
+
+	result := dborm.Db.
+		Model(&model.Artwork{}).
+		Where(&model.Artwork{Id: data.Id}).
+		Updates(update)
+
+	return result.Error
+}
+
+// 删除创作
 
 type DeleteParam struct {
 	Id     uint
@@ -84,7 +120,7 @@ func Delete(data *DeleteParam) error {
 
 }
 
-// 获取配置
+// 获取创作
 
 type FetchParam struct {
 	Id     uint
@@ -108,7 +144,7 @@ func Fetch(data *FetchParam) (*model.Artwork, error) {
 
 }
 
-// 获取配置列表
+// 获取创作列表
 
 type FetchAllParam struct {
 	UserId uint
@@ -130,7 +166,7 @@ func FetchAll(data *FetchAllParam) ([]*model.Artwork, error) {
 
 }
 
-// 获取配置总数
+// 获取创作总数
 
 func Count(data *FetchAllParam) (int64, error) {
 

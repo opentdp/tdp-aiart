@@ -5,6 +5,7 @@ package model
 type Artwork struct {
 	Id             uint `gorm:"primaryKey"`
 	UserId         uint `gorm:"index"`
+	Username       string
 	Subject        string
 	Prompt         string
 	NegativePrompt string
@@ -12,6 +13,8 @@ type Artwork struct {
 	Strength       float64
 	InputFile      string
 	OutputFile     string
+	Favorites      uint
+	Recommends     uint
 	Status         string
 	CreatedAt      int64
 	UpdatedAt      int64

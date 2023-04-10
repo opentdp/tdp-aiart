@@ -26,6 +26,7 @@ export class ArtworkModel extends HttpClient {
 
 export interface ArtworkOrig {
     UserId: string
+    Username: string
     Subject: string
     Prompt: string
     NegativePrompt: string
@@ -33,6 +34,8 @@ export interface ArtworkOrig {
     Strength: number
     InputFile: string
     OutputFile: string
+    Favorites: number
+    Recommends: number
     Status: string
 }
 
