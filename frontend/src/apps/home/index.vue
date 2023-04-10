@@ -58,12 +58,12 @@ export default class HomeIndex extends Vue {
     width: 250px;
     margin-bottom: 10px;
 
-    ::v-deep .t-card__body {
+    :deep(.t-card__body) {
         line-height: 0;
         padding: 0;
     }
 
-    ::v-deep .t-image__wrapper {
+    :deep(.t-image__wrapper) {
         min-height: 100px;
     }
 }
