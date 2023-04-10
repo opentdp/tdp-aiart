@@ -44,7 +44,11 @@ export default class ArtworkList extends Vue {
             :break-at="{ 2330: 8, 2070: 7, 1810: 6, 1550: 5, 1290: 4, 1030: 3, 770: 2, 510: 1 }">
             <t-card v-for="item in images" :key="item.Id" theme="poster2" class="item">
                 <template #default>
-                    <t-image :src="'/upload/' + item.OutputFile" />
+                    <t-image-viewer :images="['/upload/' + item.OutputFile]">
+                        <template #trigger="{ open }">
+                            <t-image :src="'/upload/' + item.OutputFile" @click="open" />
+                        </template>
+                    </t-image-viewer>
                 </template>
                 <template #footer>
                     <t-comment :author="item.Subject" :content="item.Prompt" />
@@ -73,6 +77,7 @@ export default class ArtworkList extends Vue {
 
     :deep(.t-image__wrapper) {
         min-height: 100px;
+        cursor: pointer;
     }
 }
 </style>

@@ -36,18 +36,16 @@ export default class HomeIndex extends Vue {
 <template>
     <VueFlexWaterfall align-content="start" col="4" col-spacing="10" :break-by-container="true"
         :break-at="{ 2330: 8, 2070: 7, 1810: 6, 1550: 5, 1290: 4, 1030: 3, 770: 2, 510: 1 }">
-        <t-card v-for="item in images" :key="item.Id" class="item">
-            <t-image :src="'/upload/' + item.OutputFile" />
+        <t-card v-for="item in images" :key="item.Id" theme="poster2" class="item">
+            <template #default>
+                <t-image-viewer :images="['/upload/' + item.OutputFile]">
+                    <template #trigger="{ open }">
+                        <t-image :src="'/upload/' + item.OutputFile" @click="open" />
+                    </template>
+                </t-image-viewer>
+            </template>
             <template #footer>
-                <div v-if="item.Subject">
-                    <b>{{ item.Subject }}</b>
-                </div>
-                <div v-if="item.Prompt">
-                    <b>提示词：</b>{{ item.Prompt }}
-                </div>
-                <div v-if="item.NegativePrompt">
-                    <b>反向词：</b>{{ item.NegativePrompt }}
-                </div>
+                <t-comment :author="item.Subject" :content="item.Prompt" />
             </template>
         </t-card>
     </VueFlexWaterfall>
