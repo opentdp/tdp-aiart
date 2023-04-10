@@ -2,6 +2,7 @@ package user
 
 import (
 	"github.com/google/uuid"
+	"gorm.io/gorm"
 
 	"tdp-aiart/helper/secure"
 	"tdp-aiart/module/dborm"
@@ -95,6 +96,34 @@ func Update(data *UpdateParam) error {
 			AppKey:      data.AppKey,
 			Description: data.Description,
 		})
+
+	return result.Error
+
+}
+
+// 更新用户配额
+
+type UpdateQuotaParam struct {
+	Id           uint
+	ArtworkQuota int
+}
+
+func UpdateQuota(data *UpdateQuotaParam) error {
+
+	update := map[string]any{}
+
+	if data.ArtworkQuota > 0 {
+		update["artwork_quota"] = gorm.Expr("artwork_quota + ?", data.ArtworkQuota)
+	} else if data.ArtworkQuota < 0 {
+		update["artwork_quota"] = gorm.Expr("artwork_quota - ?", -data.ArtworkQuota)
+	}
+
+	result := dborm.Db.
+		Model(&model.User{}).
+		Where(&model.User{
+			Id: data.Id,
+		}).
+		Updates(update)
 
 	return result.Error
 

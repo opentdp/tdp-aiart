@@ -6,10 +6,11 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"tdp-aiart/module/model/artwork"
+	"tdp-aiart/module/model/user"
 	"tdp-aiart/module/painter"
 )
 
-// 图片列表
+// 创作列表
 
 func list(c *gin.Context) {
 
@@ -32,7 +33,7 @@ func list(c *gin.Context) {
 
 }
 
-// 获取图片
+// 获取创作
 
 func detail(c *gin.Context) {
 
@@ -58,7 +59,7 @@ func detail(c *gin.Context) {
 
 }
 
-// 添加图片
+// 添加创作
 
 func create(c *gin.Context) {
 
@@ -71,11 +72,30 @@ func create(c *gin.Context) {
 		return
 	}
 
+	// 验证配额
+
+	ur, err := user.Fetch(&user.FetchParam{
+		Id: c.GetUint("UserId"),
+	})
+
+	if err != nil || ur.Id == 0 {
+		c.Set("Error", err)
+		return
+	}
+
+	if ur.ArtworkQuota <= 0 {
+		c.Set("Error", "剩余配额为零")
+		return
+	}
+
+	user.UpdateQuota(&user.UpdateQuotaParam{Id: ur.Id, ArtworkQuota: -1})
+
 	// 请求接口
 
 	res, err := painter.Create(param)
 
 	if err != nil {
+		user.UpdateQuota(&user.UpdateQuotaParam{Id: ur.Id, ArtworkQuota: 1})
 		c.Set("Error", err)
 		return
 	}
@@ -83,7 +103,8 @@ func create(c *gin.Context) {
 	// 存储数据
 
 	rq := &artwork.CreateParam{
-		UserId:         c.GetUint("UserId"),
+		UserId:         ur.Id,
+		Username:       ur.Username,
 		Subject:        param.Subject,
 		Prompt:         param.Prompt,
 		NegativePrompt: param.NegativePrompt,
@@ -98,12 +119,13 @@ func create(c *gin.Context) {
 		c.Set("Payload", gin.H{"Id": id, "OutputFile": res.OutputFile})
 		c.Set("Message", "添加成功")
 	} else {
+		user.UpdateQuota(&user.UpdateQuotaParam{Id: ur.Id, ArtworkQuota: 1})
 		c.Set("Error", err)
 	}
 
 }
 
-// 修改图片
+// 修改创作
 
 func update(c *gin.Context) {
 
@@ -129,7 +151,7 @@ func update(c *gin.Context) {
 
 }
 
-// 删除图片
+// 删除创作
 
 func delete(c *gin.Context) {
 
