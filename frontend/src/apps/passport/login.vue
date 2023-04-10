@@ -11,6 +11,8 @@ import sessionStore from "@/store/session"
 
 @Component
 export default class PassportLogin extends Vue {
+    public loading = false
+
     public layout = layoutStore()
     public session = sessionStore()
 
@@ -34,7 +36,10 @@ export default class PassportLogin extends Vue {
             Api.msg.err("请检查表单")
             return false
         }
-        const res = await NaApi.passport.login(this.formModel)
+        this.loading = true
+        const res = await NaApi.passport.login(this.formModel).finally(() => {
+            this.loading = false
+        })
         this.session.update(res)
         // 切换到后台首页
         this.$router.push("/")
@@ -66,7 +71,7 @@ export default class PassportLogin extends Vue {
                         </t-input>
                     </t-form-item>
                     <t-form-item>
-                        <t-button theme="primary" size="large" type="submit" block>
+                        <t-button :loading="loading" theme="primary" size="large" type="submit" block>
                             登录
                         </t-button>
                     </t-form-item>

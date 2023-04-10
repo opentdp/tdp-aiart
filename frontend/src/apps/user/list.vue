@@ -28,7 +28,9 @@ export default class UserList extends Vue {
     public userList: UserItem[] = []
 
     async getUserList() {
-        const res = await NaApi.user.list({}).finally(() => this.loading = false)
+        const res = await NaApi.user.list({}).finally(() => {
+            this.loading = false
+        })
         this.userList = res.Items
     }
 

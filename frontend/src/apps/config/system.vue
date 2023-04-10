@@ -28,7 +28,9 @@ export default class ConfigSystem extends Vue {
     public configList: ConfigItem[] = []
 
     async getConfigList() {
-        const res = await NaApi.config.list({}).finally(() => this.loading = false)
+        const res = await NaApi.config.list({}).finally(() => {
+            this.loading = false
+        })
         this.configList = res.Items
     }
 

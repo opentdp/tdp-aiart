@@ -6,7 +6,6 @@ export class PassportModel extends HttpClient {
     }
 
     public register(rq: UserRegister): Promise<{ Id: number }> {
-        delete rq.Password2
         return this.post("/passport/register", rq)
     }
 
