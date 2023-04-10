@@ -6,7 +6,7 @@ import { PrimaryTableCol, TableRowData } from "tdesign-vue-next"
 import { NaApi } from "@/api"
 import { UserItem } from "@/api/native/user"
 
-import UserUpdate from "./user_update.vue"
+import UserUpdate from "./update.vue"
 
 @Component({
     components: { UserUpdate }

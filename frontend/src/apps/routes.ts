@@ -47,14 +47,14 @@ export const routes: RouteRecordRaw[] = [
                 component: () => import("./user/list.vue"),
             },
             {
-                path: "/config/system",
-                name: "config-system",
+                path: "/config/list",
+                name: "config-list",
                 meta: {
                     title: "系统参数",
                     admin: true,
                     login: true,
                 },
-                component: () => import("./config/system.vue"),
+                component: () => import("./config/list.vue"),
             },
             //////
             {
