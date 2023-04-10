@@ -6,8 +6,8 @@ import (
 
 var Efs *embed.FS
 
-const Version = "0.2.1"
-const BuildVersion = "230404"
+const Version = "0.3.0"
+const BuildVersion = "230405"
 
 const AppName = "TDP Aiart"
 const AppSummary = "土豆片智能绘画"
