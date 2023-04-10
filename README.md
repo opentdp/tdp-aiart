@@ -72,7 +72,7 @@ go env -w GOPROXY=https://goproxy.cn,direct
 
 扫码添加开发者好友（请备注 `Open TDP`，不备注可能无法通过好友申请）
 
-![](./docs/weixin-qr.jpg)
+![](http://docs.opentdp.org/static/weixin-qr.jpg)
 
 ## 其他
 
