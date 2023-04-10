@@ -54,7 +54,7 @@ type User struct {
 	AppKey       string `json:"-"`
 	Email        string `gorm:"uniqueIndex,default:null"`
 	Description  string `gorm:"default:挥一挥手"`
-	ArtworkQuota uint   `gorm:"default:10"`
+	ArtworkQuota uint   `gorm:"default:3"`
 	CreatedAt    int64
 	UpdatedAt    int64
 }

@@ -2,6 +2,7 @@ package passport
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/cast"
 
 	"tdp-aiart/cmd/args"
 	"tdp-aiart/helper/strutil"
@@ -31,6 +32,11 @@ func register(c *gin.Context) {
 	if err := user.CheckUserinfo(rq.Username, rq.Password, rq.Email); err != nil {
 		c.Set("Error", err)
 		return
+	}
+
+	// 绘图默认配额
+	if val := config.ValueOf("ArtworkQuota"); val != "" {
+		rq.ArtworkQuota = cast.ToUint(val)
 	}
 
 	rq.Level = 0 //防止逃逸

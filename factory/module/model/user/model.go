@@ -12,13 +12,14 @@ import (
 // 创建用户
 
 type CreateParam struct {
-	Username    string `binding:"required"`
-	Password    string `binding:"required"`
-	Level       uint
-	AppKey      string
-	Email       string `binding:"required"`
-	Description string
-	StoreKey    string // 存储密钥
+	Username     string `binding:"required"`
+	Password     string `binding:"required"`
+	Level        uint
+	AppKey       string
+	Email        string `binding:"required"`
+	Description  string
+	ArtworkQuota uint
+	StoreKey     string // 存储密钥
 }
 
 func Create(data *CreateParam) (uint, error) {
@@ -39,13 +40,14 @@ func Create(data *CreateParam) (uint, error) {
 	}
 
 	item := &model.User{
-		Username:    data.Username,
-		Password:    data.Password,
-		Level:       data.Level,
-		AppId:       uuid.NewString(),
-		AppKey:      data.AppKey,
-		Email:       data.Email,
-		Description: data.Description,
+		Username:     data.Username,
+		Password:     data.Password,
+		Level:        data.Level,
+		AppId:        uuid.NewString(),
+		AppKey:       data.AppKey,
+		Email:        data.Email,
+		Description:  data.Description,
+		ArtworkQuota: data.ArtworkQuota,
 	}
 
 	result := dborm.Db.Create(item)
