@@ -87,6 +87,12 @@ const menuItems: MenuItem[] = [
         title: "图生图",
     },
     {
+        icon: "user-avatar",
+        index: "/user/list",
+        title: "用户管理",
+        level: 1,
+    },
+    {
         icon: "setting",
         index: "/config/system",
         title: "系统参数",

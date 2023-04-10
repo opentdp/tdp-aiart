@@ -57,14 +57,15 @@ func Create(data *CreateParam) (uint, error) {
 // 更新用户
 
 type UpdateParam struct {
-	Id          uint
-	Username    string
-	Password    string
-	Level       uint
-	Email       string
-	AppKey      string
-	Description string
-	StoreKey    string // 存储密钥
+	Id           uint
+	Username     string
+	Password     string
+	Level        uint
+	Email        string
+	AppKey       string
+	Description  string
+	ArtworkQuota uint
+	StoreKey     string // 存储密钥
 }
 
 func Update(data *UpdateParam) error {
@@ -89,12 +90,13 @@ func Update(data *UpdateParam) error {
 			Id: data.Id,
 		}).
 		Updates(model.User{
-			Username:    data.Username,
-			Password:    data.Password,
-			Level:       data.Level,
-			Email:       data.Email,
-			AppKey:      data.AppKey,
-			Description: data.Description,
+			Username:     data.Username,
+			Password:     data.Password,
+			Level:        data.Level,
+			Email:        data.Email,
+			AppKey:       data.AppKey,
+			Description:  data.Description,
+			ArtworkQuota: data.ArtworkQuota,
 		})
 
 	return result.Error

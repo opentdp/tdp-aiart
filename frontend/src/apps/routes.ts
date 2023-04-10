@@ -37,6 +37,16 @@ export const routes: RouteRecordRaw[] = [
                 component: () => import("./dashboard/index.vue"),
             },
             {
+                path: "/user/list",
+                name: "user-list",
+                meta: {
+                    title: "用户管理",
+                    admin: true,
+                    login: true,
+                },
+                component: () => import("./user/list.vue"),
+            },
+            {
                 path: "/config/system",
                 name: "config-system",
                 meta: {

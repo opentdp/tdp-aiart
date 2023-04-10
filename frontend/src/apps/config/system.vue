@@ -11,7 +11,7 @@ import ConfigUpdate from "./config_update.vue"
 @Component({
     components: { ConfigUpdate }
 })
-export default class VendorAlibabaUpdate extends Vue {
+export default class ConfigSystem extends Vue {
     public loading = true
 
     @Ref
