@@ -74,28 +74,24 @@ func create(c *gin.Context) {
 
 	// 验证配额
 
+	userId := c.GetUint("UserId")
 	ur, err := user.Fetch(&user.FetchParam{
-		Id: c.GetUint("UserId"),
+		Id: userId,
 	})
 
-	if err != nil || ur.Id == 0 {
-		c.Set("Error", err)
+	if err != nil || ur.ArtworkQuota <= 0 {
+		c.Set("Error", "可用配额不足")
 		return
 	}
 
-	if ur.ArtworkQuota <= 0 {
-		c.Set("Error", "剩余配额为零")
-		return
-	}
-
-	user.UpdateQuota(&user.UpdateQuotaParam{Id: ur.Id, ArtworkQuota: -1})
+	user.UpdateQuota(&user.UpdateQuotaParam{Id: userId, ArtworkQuota: -1})
 
 	// 请求接口
 
 	res, err := painter.Create(param)
 
 	if err != nil {
-		user.UpdateQuota(&user.UpdateQuotaParam{Id: ur.Id, ArtworkQuota: 1})
+		user.UpdateQuota(&user.UpdateQuotaParam{Id: userId, ArtworkQuota: 1})
 		c.Set("Error", err)
 		return
 	}
@@ -103,8 +99,7 @@ func create(c *gin.Context) {
 	// 存储数据
 
 	rq := &artwork.CreateParam{
-		UserId:         ur.Id,
-		Username:       ur.Username,
+		UserId:         userId,
 		Subject:        param.Subject,
 		Prompt:         param.Prompt,
 		NegativePrompt: param.NegativePrompt,
@@ -119,7 +114,7 @@ func create(c *gin.Context) {
 		c.Set("Payload", gin.H{"Id": id, "OutputFile": res.OutputFile})
 		c.Set("Message", "添加成功")
 	} else {
-		user.UpdateQuota(&user.UpdateQuotaParam{Id: ur.Id, ArtworkQuota: 1})
+		user.UpdateQuota(&user.UpdateQuotaParam{Id: userId, ArtworkQuota: 1})
 		c.Set("Error", err)
 	}
 

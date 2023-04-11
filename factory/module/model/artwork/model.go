@@ -11,7 +11,6 @@ import (
 
 type CreateParam struct {
 	UserId         uint `binding:"required"`
-	Username       string
 	Subject        string
 	Prompt         string
 	NegativePrompt string
@@ -26,7 +25,6 @@ func Create(data *CreateParam) (uint, error) {
 
 	item := &model.Artwork{
 		UserId:         data.UserId,
-		Username:       data.Username,
 		Subject:        data.Subject,
 		Prompt:         data.Prompt,
 		NegativePrompt: data.NegativePrompt,
