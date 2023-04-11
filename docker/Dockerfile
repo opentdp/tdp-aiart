@@ -12,6 +12,6 @@ LABEL version="v0.6.1" \
 
 COPY --from=builder /usr/local/bin/tdp-* /usr/local/bin/
 
-ENTRYPOINT ["tdp-aiart"]
+ENTRYPOINT ["tdp-server"]
 
 EXPOSE 7700
