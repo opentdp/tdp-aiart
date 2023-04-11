@@ -6,8 +6,8 @@ type Artwork struct {
 	Id             uint   `gorm:"primaryKey"`
 	UserId         uint   `gorm:"index"`
 	Subject        string `gorm:"size:128"`
-	Prompt         string `gorm:"size:4096"`
-	NegativePrompt string `gorm:"size:4096"`
+	Prompt         string `gorm:"size:1024"`
+	NegativePrompt string `gorm:"size:1024"`
 	Styles         string `gorm:"size:256"`
 	Strength       float64
 	InputFile      string `gorm:"size:256"`
