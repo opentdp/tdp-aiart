@@ -1,6 +1,11 @@
 #!/bin/sh
 #
 
+set -e
+set -o noglob
+
+###########################################
+
 if [ -n "$GITHUB_WORKSPACE" ]; then
     WKDIR=$GITHUB_WORKSPACE
 else
