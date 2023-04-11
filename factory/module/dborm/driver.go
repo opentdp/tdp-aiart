@@ -6,23 +6,7 @@ import (
 	"gorm.io/gorm"
 
 	"tdp-aiart/cmd/args"
-	"tdp-aiart/helper/logman"
 )
-
-func dialector() gorm.Dialector {
-
-	switch args.Database.Type {
-	case "sqlite":
-		return useSqlite()
-	case "mysql":
-		return useMysql()
-	default:
-		logman.Fatal("Database type error", "type", args.Database.Type)
-	}
-
-	return nil
-
-}
 
 func useSqlite() gorm.Dialector {
 
