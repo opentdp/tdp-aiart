@@ -2,13 +2,13 @@ package passport
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/open-tdp/go-helper/strutil"
 	"github.com/spf13/cast"
 
 	"tdp-aiart/cmd/args"
-	"tdp-aiart/helper/strutil"
-	"tdp-aiart/module/model/config"
-	"tdp-aiart/module/model/passport"
-	"tdp-aiart/module/model/user"
+	"tdp-aiart/model/config"
+	"tdp-aiart/model/passport"
+	"tdp-aiart/model/user"
 )
 
 // 注册用户

@@ -1,8 +1,8 @@
 package artwork
 
 import (
+	"tdp-aiart/model"
 	"tdp-aiart/module/dborm"
-	"tdp-aiart/module/model"
 
 	"gorm.io/gorm"
 )

@@ -5,9 +5,8 @@ import (
 	"path"
 	"path/filepath"
 
+	"github.com/open-tdp/go-helper/strutil"
 	"github.com/spf13/viper"
-
-	"tdp-aiart/helper/strutil"
 )
 
 func init() {

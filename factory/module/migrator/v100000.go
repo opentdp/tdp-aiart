@@ -1,8 +1,8 @@
 package migrator
 
 import (
+	"tdp-aiart/model"
 	"tdp-aiart/module/dborm"
-	"tdp-aiart/module/model"
 )
 
 func v100000() error {

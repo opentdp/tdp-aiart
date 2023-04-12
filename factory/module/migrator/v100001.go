@@ -1,9 +1,10 @@
 package migrator
 
 import (
+	"github.com/open-tdp/go-helper/strutil"
+
 	"tdp-aiart/cmd/args"
-	"tdp-aiart/helper/strutil"
-	"tdp-aiart/module/model/user"
+	"tdp-aiart/model/user"
 )
 
 func v100001() error {

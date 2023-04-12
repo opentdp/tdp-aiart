@@ -1,8 +1,8 @@
 package migration
 
 import (
+	"tdp-aiart/model"
 	"tdp-aiart/module/dborm"
-	"tdp-aiart/module/model"
 )
 
 // 创建配置

@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"tdp-aiart/cmd/args"
-	"tdp-aiart/module/model/config"
+	"tdp-aiart/model/config"
 )
 
 // 配置列表

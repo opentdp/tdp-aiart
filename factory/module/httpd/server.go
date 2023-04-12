@@ -8,7 +8,7 @@ import (
 	"syscall"
 	"time"
 
-	"tdp-aiart/helper/logman"
+	"github.com/open-tdp/go-helper/logman"
 )
 
 func Server(addr string, engine http.Handler) {

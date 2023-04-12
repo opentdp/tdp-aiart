@@ -9,8 +9,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-
-	"tdp-aiart/helper/logman"
+	"github.com/open-tdp/go-helper/logman"
 )
 
 // 恢复项目可能出现的panic

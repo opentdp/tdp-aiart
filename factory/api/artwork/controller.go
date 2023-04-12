@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"tdp-aiart/module/model/artwork"
-	"tdp-aiart/module/model/user"
+	"tdp-aiart/model/artwork"
+	"tdp-aiart/model/user"
 	"tdp-aiart/module/painter"
 )
 

@@ -1,8 +1,8 @@
 package passport
 
 import (
-	"tdp-aiart/module/model/artwork"
-	"tdp-aiart/module/model/user"
+	"tdp-aiart/model/artwork"
+	"tdp-aiart/model/user"
 )
 
 // 统计信息

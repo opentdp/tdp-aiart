@@ -2,9 +2,9 @@ package server
 
 import (
 	"github.com/kardianos/service"
+	"github.com/open-tdp/go-helper/logman"
 
 	"tdp-aiart/cmd/args"
-	"tdp-aiart/helper/logman"
 )
 
 var svclog service.Logger

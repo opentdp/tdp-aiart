@@ -1,7 +1,7 @@
 package migrator
 
 import (
-	"tdp-aiart/module/model/config"
+	"tdp-aiart/model/config"
 )
 
 func v100002() error {

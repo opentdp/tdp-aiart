@@ -1,8 +1,9 @@
 package migrator
 
 import (
-	"tdp-aiart/helper/logman"
-	"tdp-aiart/module/model/migration"
+	"github.com/open-tdp/go-helper/logman"
+
+	"tdp-aiart/model/migration"
 )
 
 func Deploy() {

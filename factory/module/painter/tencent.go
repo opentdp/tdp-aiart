@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 
-	"tdp-aiart/helper/tencent"
-	"tdp-aiart/module/model/config"
-
 	"github.com/mitchellh/mapstructure"
+	"github.com/open-tdp/go-helper/tencent"
+
+	"tdp-aiart/model/config"
 )
 
 func TencentAiart(rq *ReqeustParam) (string, error) {

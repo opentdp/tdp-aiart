@@ -3,8 +3,8 @@ package passport
 import (
 	"errors"
 
+	"tdp-aiart/model/user"
 	"tdp-aiart/module/midware"
-	"tdp-aiart/module/model/user"
 )
 
 // 登录账号
