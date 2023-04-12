@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+
+mkdir -p /etc/tdp-aiart
+mkdir -p /var/lib/tdp-aiart
+mkdir -p /var/log/tdp-aiart
+
+yml=/etc/tdp-aiart/server.yml
+
+[ -f $yml ] || cat <<EOF >$yml
+dataset:
+    dir: /var/lib/tdp-aiart
+logger:
+    dir: /var/log/tdp-aiart
+    level: info
+server:
+    listen: :7700
+EOF
+
+exec tdp-aiart server -c $yml
