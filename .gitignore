@@ -1,16 +1,25 @@
-.env
-.idea
-.vscode
 .DS_Store
 
-*.db
+build
+server.db*
+
+# local env files
+__debug_*
+tests/.env
+front/*
+var/*
+/*.bat
+/*.yml
+
+# Log files
 *.err
 *.log
+
+# Editor directories and files
+.idea
+.vscode
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-
-build/*
-front/*
