@@ -24,7 +24,7 @@
 
 ### 编译为二进制
 
-在项目目录运行 `build.bat` 或 `./build.sh`
+在项目目录运行 `build.bat` 或 `./build.sh`。你还可以下载 [稳定版](https://aiart.opentdp.org/files)
 
 ### 额外参数设置
 
@@ -33,39 +33,6 @@
 ```shell
 go env -w GO111MODULE=on
 go env -w GOPROXY=https://goproxy.cn,direct
-```
-
-## 开发工具配置
-
-项目编辑器推荐使用 `vscode`，并设置代码格式化插件如下
-
-```json
-{
-    "[css]": {
-        "editor.defaultFormatter": "vscode.css-language-features"
-    },
-    "[scss]": {
-        "editor.defaultFormatter": "vscode.css-language-features"
-    },
-    "[html]": {
-        "editor.defaultFormatter": "vscode.html-language-features"
-    },
-    "[json]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    "[jsonc]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    "[javascript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features"
-    },
-    "[typescript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features"
-    },
-    "[vue]": {
-        "editor.defaultFormatter": "Vue.volar"
-    }
-}
 ```
 
 ## 微信交流群
