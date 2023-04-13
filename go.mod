@@ -5,8 +5,6 @@ go 1.19
 require (
 	// WEB 框架
 	github.com/gin-gonic/gin v1.7.7
-	// SQLite 驱动
-	github.com/glebarez/sqlite v1.8.0
 	// JWT 认证支持
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	// 生成 UUID
@@ -25,8 +23,6 @@ require (
 	github.com/spf13/viper v1.15.0
 	// Go 官方模块
 	golang.org/x/crypto v0.8.0
-	// MySQL 驱动
-	gorm.io/driver/mysql v1.5.0
 	// ORM 核心
 	gorm.io/gorm v1.25.0
 )
@@ -40,6 +36,7 @@ require (
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/glebarez/go-sqlite v1.21.1 // indirect
+	github.com/glebarez/sqlite v1.8.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.12.0 // indirect
@@ -74,6 +71,7 @@ require (
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 	gopkg.in/yaml.v2 v2.2.8 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+	gorm.io/driver/mysql v1.5.0 // indirect
 	modernc.org/libc v1.22.3 // indirect
 	modernc.org/mathutil v1.5.0 // indirect
 	modernc.org/memory v1.5.0 // indirect
