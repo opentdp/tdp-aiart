@@ -1,8 +1,9 @@
 package config
 
 import (
+	"github.com/open-tdp/go-helper/dborm"
+
 	"tdp-aiart/model"
-	"tdp-aiart/module/dborm"
 )
 
 // 创建配置

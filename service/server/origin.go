@@ -2,8 +2,9 @@ package server
 
 import (
 	"github.com/kardianos/service"
+	"github.com/open-tdp/go-helper/dborm"
 
-	"tdp-aiart/module/dborm"
+	"tdp-aiart/cmd/args"
 	"tdp-aiart/module/httpd"
 	"tdp-aiart/module/migrator"
 )
@@ -30,7 +31,7 @@ func (p *program) Stop(s service.Service) error {
 func (p *program) run() {
 
 	// 连接数据库
-	dborm.Connect()
+	dborm.Connect(&args.Database)
 
 	// 实施自动迁移
 	migrator.Deploy()

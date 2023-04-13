@@ -1,10 +1,10 @@
 package artwork
 
 import (
-	"tdp-aiart/model"
-	"tdp-aiart/module/dborm"
-
+	"github.com/open-tdp/go-helper/dborm"
 	"gorm.io/gorm"
+
+	"tdp-aiart/model"
 )
 
 // 创建创作

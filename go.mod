@@ -6,10 +6,9 @@ require (
 	// WEB 框架
 	github.com/gin-gonic/gin v1.7.7
 	// SQLite 驱动
-	github.com/glebarez/sqlite v1.7.0
+	github.com/glebarez/sqlite v1.8.0
 	// JWT 认证支持
 	github.com/golang-jwt/jwt/v4 v4.5.0
-	// 加解密
 	// 生成 UUID
 	github.com/google/uuid v1.3.0
 	// 服务管理
@@ -17,7 +16,7 @@ require (
 	// Map 转结构体
 	github.com/mitchellh/mapstructure v1.5.0
 	// 辅助类库
-	github.com/open-tdp/go-helper v0.0.1
+	github.com/open-tdp/go-helper v0.0.3
 	// 类型转换
 	github.com/spf13/cast v1.5.0
 	// CLI 参数解析
@@ -27,9 +26,9 @@ require (
 	// 官方依赖包
 	golang.org/x/crypto v0.8.0
 	// MySQL 驱动
-	gorm.io/driver/mysql v1.4.7
+	gorm.io/driver/mysql v1.5.0
 	// ORM 核心
-	gorm.io/gorm v1.24.6
+	gorm.io/gorm v1.25.0
 )
 
 // 间接依赖包

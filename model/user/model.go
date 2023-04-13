@@ -4,10 +4,10 @@ import (
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 
+	"github.com/open-tdp/go-helper/dborm"
 	"github.com/open-tdp/go-helper/secure"
 
 	"tdp-aiart/model"
-	"tdp-aiart/module/dborm"
 )
 
 // 创建用户

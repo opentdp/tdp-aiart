@@ -1,8 +1,9 @@
 package migrator
 
 import (
+	"github.com/open-tdp/go-helper/dborm"
+
 	"tdp-aiart/model"
-	"tdp-aiart/module/dborm"
 )
 
 func v100000() error {
