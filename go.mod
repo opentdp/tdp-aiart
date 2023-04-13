@@ -16,14 +16,14 @@ require (
 	// Map 转结构体
 	github.com/mitchellh/mapstructure v1.5.0
 	// 辅助类库
-	github.com/open-tdp/go-helper v0.0.3
+	github.com/open-tdp/go-helper v0.0.4
 	// 类型转换
 	github.com/spf13/cast v1.5.0
 	// CLI 参数解析
 	github.com/spf13/cobra v1.7.0
 	// 配置文件读取
 	github.com/spf13/viper v1.15.0
-	// 官方依赖包
+	// Go 官方模块
 	golang.org/x/crypto v0.8.0
 	// MySQL 驱动
 	gorm.io/driver/mysql v1.5.0
@@ -34,6 +34,7 @@ require (
 // 间接依赖包
 
 require (
+	aead.dev/minisign v0.2.0 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/forgoer/openssl v1.5.0 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
@@ -52,6 +53,7 @@ require (
 	github.com/leodido/go-urn v1.2.3 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
 	github.com/mattn/go-isatty v0.0.18 // indirect
+	github.com/minio/selfupdate v0.6.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect

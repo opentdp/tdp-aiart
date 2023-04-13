@@ -34,7 +34,7 @@ func init() {
 func Execute() {
 
 	rcmd.AddCommand(
-		subset.WithServer(),
+		subset.WithServer(), subset.WithUpdate(),
 	)
 
 	if err := rcmd.Execute(); err != nil {
