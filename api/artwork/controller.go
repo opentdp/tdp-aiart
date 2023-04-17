@@ -21,8 +21,11 @@ func list(c *gin.Context) {
 		return
 	}
 
-	if rq.UserId == 0 || rq.UserId != c.GetUint("UserId") {
-		rq.Status = "public"
+	// 非管理员只能查看自己或公开作品
+	if c.GetUint("UserLevel") != 1 {
+		if rq.UserId == 0 || rq.UserId != c.GetUint("UserId") {
+			rq.Status = "public"
+		}
 	}
 
 	if lst, err := artwork.FetchAll(rq); err == nil {
