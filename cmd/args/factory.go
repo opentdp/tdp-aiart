@@ -58,7 +58,7 @@ func Load() {
 
 }
 
-func MustSave() {
+func WriteConfig() {
 
 	if err := viper.WriteConfig(); err != nil {
 		log.Fatal(err)
