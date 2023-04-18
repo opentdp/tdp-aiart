@@ -14,7 +14,7 @@ require (
 	// Map 转结构体
 	github.com/mitchellh/mapstructure v1.5.0
 	// 辅助类库
-	github.com/open-tdp/go-helper v0.0.6
+	github.com/open-tdp/go-helper v0.0.7
 	// 类型转换
 	github.com/spf13/cast v1.5.0
 	// CLI 参数解析
