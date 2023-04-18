@@ -26,7 +26,7 @@ func Control(name, act string) {
 	case "server":
 		svc = server.Service(cliArgs())
 	default:
-		logman.Fatal("Unknown service", "name", name)
+		logman.Fatal("unknown service", "name", name)
 	}
 
 	// 强制保存配置
