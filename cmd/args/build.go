@@ -6,7 +6,7 @@ const BuildVersion = "230410"
 const AppName = "TDP Aiart"
 const AppSummary = "土豆片智能绘画"
 
-const UpdateUrl = "https://aiart.opentdp.org/update"
+const UpdateUrl = "https://aiart.opentdp.org/update/"
 
 const ReadmeText = AppSummary + `
 
