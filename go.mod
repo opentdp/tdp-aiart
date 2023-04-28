@@ -15,6 +15,8 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0
 	// 辅助类库
 	github.com/open-tdp/go-helper v0.0.11
+	// OpenAI 接口
+	github.com/sashabaranov/go-openai v1.9.0
 	// 类型转换
 	github.com/spf13/cast v1.5.0
 	// CLI 参数解析

@@ -44,6 +44,7 @@ func doMigrate() error {
 		v100002,
 		v100003,
 		v100004,
+		v100005,
 	}
 
 	for _, fn := range funcs {

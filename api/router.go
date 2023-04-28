@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"tdp-aiart/api/artwork"
+	"tdp-aiart/api/chatbot"
 	"tdp-aiart/api/config"
 	"tdp-aiart/api/passport"
 	"tdp-aiart/api/upgrade"
@@ -21,6 +22,7 @@ func Router(engine *gin.Engine) {
 
 	{
 		artwork.Router(api)
+		chatbot.Router(api)
 		config.Router(api)
 		passport.Router(api)
 		upgrade.Router(api)
