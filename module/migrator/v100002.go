@@ -32,14 +32,14 @@ func v100002AddConfig() error {
 			Name:        "SecretId",
 			Value:       "",
 			Type:        "string",
-			Module:      "Tencent",
+			Module:      "tencent",
 			Description: "腾讯云 SecretId",
 		},
 		{
 			Name:        "SecretKey",
 			Value:       "",
 			Type:        "string",
-			Module:      "Tencent",
+			Module:      "tencent",
 			Description: "腾讯云 SecretKey",
 		},
 	}

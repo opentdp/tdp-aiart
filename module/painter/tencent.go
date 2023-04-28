@@ -14,7 +14,7 @@ func TencentAiart(rq *ReqeustParam) (string, error) {
 
 	// 获取密钥
 
-	kv := config.ValuesOf("Tencent")
+	kv := config.ValuesOf("tencent")
 
 	if kv["SecretId"] == "" || kv["SecretKey"] == "" {
 		return "", errors.New("请先配置腾讯云密钥")
