@@ -29,7 +29,7 @@ func v100005AddConfig() error {
 			Description: "OpenAI 密钥",
 		},
 		{
-			Name:        "proxyUrl",
+			Name:        "ProxyUrl",
 			Value:       "",
 			Type:        "string",
 			Module:      "openai",

@@ -21,8 +21,8 @@ func Client() (*openai.Client, error) {
 
 	config := openai.DefaultConfig(kv["ApiKey"])
 
-	if kv["proxyUrl"] == "" {
-		proxyUrl, err := url.Parse(kv["proxyUrl"])
+	if kv["ProxyUrl"] == "" {
+		proxyUrl, err := url.Parse(kv["ProxyUrl"])
 		if err != nil {
 			return nil, err
 		}
