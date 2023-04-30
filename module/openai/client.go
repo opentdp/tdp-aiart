@@ -21,15 +21,17 @@ func Client() (*openai.Client, error) {
 
 	config := openai.DefaultConfig(kv["ApiKey"])
 
+	if kv["ApiUrl"] == "" {
+		config.BaseURL = kv["ApiUrl"]
+	}
+
 	if kv["ProxyUrl"] == "" {
 		proxyUrl, err := url.Parse(kv["ProxyUrl"])
 		if err != nil {
 			return nil, err
 		}
-		config.HTTPClient = &http.Client{
-			Transport: &http.Transport{
-				Proxy: http.ProxyURL(proxyUrl),
-			},
+		config.HTTPClient.Transport = &http.Transport{
+			Proxy: http.ProxyURL(proxyUrl),
 		}
 	}
 
