@@ -21,11 +21,11 @@ func Client() (*openai.Client, error) {
 
 	config := openai.DefaultConfig(kv["ApiKey"])
 
-	if kv["ApiUrl"] == "" {
+	if kv["ApiUrl"] != "" {
 		config.BaseURL = kv["ApiUrl"]
 	}
 
-	if kv["ProxyUrl"] == "" {
+	if kv["ProxyUrl"] != "" {
 		proxyUrl, err := url.Parse(kv["ProxyUrl"])
 		if err != nil {
 			return nil, err
@@ -39,7 +39,7 @@ func Client() (*openai.Client, error) {
 
 }
 
-func Chat(rq *[]ChatCompletionMessage) (*ChatCompletionMessage, error) {
+func Chat(rq []ChatCompletionMessage) (*ChatCompletionMessage, error) {
 
 	client, err := Client()
 	if err != nil {
@@ -50,7 +50,7 @@ func Chat(rq *[]ChatCompletionMessage) (*ChatCompletionMessage, error) {
 		context.Background(),
 		openai.ChatCompletionRequest{
 			Model:    openai.GPT3Dot5Turbo,
-			Messages: *rq,
+			Messages: rq,
 		},
 	)
 	if err != nil {

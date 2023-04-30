@@ -8,9 +8,9 @@ import (
 
 func message(c *gin.Context) {
 
-	var rq *[]openai.ChatCompletionMessage
+	var rq []openai.ChatCompletionMessage
 
-	if err := c.ShouldBind(rq); err != nil {
+	if err := c.ShouldBind(&rq); err != nil {
 		c.Set("Error", err)
 		return
 	}
