@@ -1,8 +1,11 @@
-# 土豆片智能绘画
+# 土豆片AI艺术家
 
 [![TDP Aiart Builder](https://github.com/open-tdp/tdp-aiart/actions/workflows/release.yml/badge.svg)](https://github.com/open-tdp/tdp-aiart/actions/workflows/release.yml)
 
-使用腾讯云 `AiArt` 接口实现的开源绘画平台
+开源智能聊天、智能绘画服务平台
+
+- 智能绘画基于腾讯云 `Aiart` 接口实现
+- 智能聊天基于OpenAI `gpt-3.5` 接口实现
 
 ## 开发说明
 
