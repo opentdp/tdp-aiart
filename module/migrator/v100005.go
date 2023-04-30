@@ -26,14 +26,21 @@ func v100005AddConfig() error {
 			Value:       "",
 			Type:        "string",
 			Module:      "openai",
-			Description: "OpenAI 密钥",
+			Description: "OpenAI 授权密钥",
+		},
+		{
+			Name:        "ApiUrl",
+			Value:       "",
+			Type:        "string",
+			Module:      "openai",
+			Description: "OpenAI 接口地址",
 		},
 		{
 			Name:        "ProxyUrl",
 			Value:       "",
 			Type:        "string",
 			Module:      "openai",
-			Description: "OpenAI 代理",
+			Description: "OpenAI 接口代理",
 		},
 	}
 

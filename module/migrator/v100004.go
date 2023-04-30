@@ -14,7 +14,7 @@ func v100004() error {
 		return err
 	}
 
-	return addMigration("v100004", "添加配额参数")
+	return addMigration("v100004", "添加绘画参数")
 
 }
 
@@ -26,7 +26,7 @@ func v100004AddConfig() error {
 			Value:       "10",
 			Type:        "number",
 			Module:      "system",
-			Description: "初始绘画配额",
+			Description: "绘画初始配额",
 		},
 	}
 
