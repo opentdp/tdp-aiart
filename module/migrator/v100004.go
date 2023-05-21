@@ -22,6 +22,20 @@ func v100004AddConfig() error {
 
 	items := []config.CreateParam{
 		{
+			Name:        "SecretId",
+			Value:       "",
+			Type:        "string",
+			Module:      "tencent",
+			Description: "腾讯云 SecretId",
+		},
+		{
+			Name:        "SecretKey",
+			Value:       "",
+			Type:        "string",
+			Module:      "tencent",
+			Description: "腾讯云 SecretKey",
+		},
+		{
 			Name:        "ArtworkQuota",
 			Value:       "10",
 			Type:        "number",

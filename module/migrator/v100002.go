@@ -28,20 +28,6 @@ func v100002AddConfig() error {
 			Module:      "system",
 			Description: "允许注册",
 		},
-		{
-			Name:        "SecretId",
-			Value:       "",
-			Type:        "string",
-			Module:      "tencent",
-			Description: "腾讯云 SecretId",
-		},
-		{
-			Name:        "SecretKey",
-			Value:       "",
-			Type:        "string",
-			Module:      "tencent",
-			Description: "腾讯云 SecretKey",
-		},
 	}
 
 	for _, item := range items {
