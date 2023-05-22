@@ -1,28 +1,21 @@
 package chatbot
 
-import (
-	"context"
+type ReqeustParam struct {
+	Model    string
+	Messages []ChatMessage
+}
 
-	"github.com/sashabaranov/go-openai"
-)
+type ChatResponse struct {
+	Messages []ChatMessage
+}
 
-type ChatCompletionRequest = openai.ChatCompletionRequest
-type ChatCompletionResponse = openai.ChatCompletionResponse
+type ChatMessage struct {
+	Role    string
+	Content string
+}
 
-func Create(rq ChatCompletionRequest) (*ChatCompletionResponse, error) {
+func Create(rq *ReqeustParam) (*ChatResponse, error) {
 
-	client, err := OpenaiClient()
-	if err != nil {
-		return nil, err
-	}
-
-	resp, err := client.CreateChatCompletion(
-		context.Background(), rq,
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	return &resp, nil
+	return OpenaiChat(rq)
 
 }

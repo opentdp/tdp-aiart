@@ -8,7 +8,7 @@ import (
 
 func create(c *gin.Context) {
 
-	var rq chatbot.ChatCompletionRequest
+	var rq *chatbot.ReqeustParam
 
 	if err := c.ShouldBind(&rq); err != nil {
 		c.Set("Error", err)

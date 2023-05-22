@@ -1,6 +1,7 @@
 package chatbot
 
 import (
+	"context"
 	"errors"
 	"net/http"
 	"net/url"
@@ -35,5 +36,53 @@ func OpenaiClient() (*openai.Client, error) {
 	}
 
 	return openai.NewClientWithConfig(config), nil
+
+}
+
+func OpenaiChat(rq *ReqeustParam) (*ChatResponse, error) {
+
+	client, err := OpenaiClient()
+	if err != nil {
+		return nil, err
+	}
+
+	// 构造请求参数
+
+	req := openai.ChatCompletionRequest{
+		Model:    rq.Model,
+		Messages: []openai.ChatCompletionMessage{},
+	}
+
+	for _, msg := range rq.Messages {
+		req.Messages = append(req.Messages, openai.ChatCompletionMessage{
+			Role:    msg.Role,
+			Content: msg.Content,
+		})
+	}
+
+	// 调用 OpenAI 接口
+
+	resp, err := client.CreateChatCompletion(
+		context.Background(), req,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	// 解析返回的数据
+
+	data := ChatResponse{
+		Messages: []ChatMessage{},
+	}
+
+	for _, choice := range resp.Choices {
+		data.Messages = append(data.Messages, ChatMessage{
+			Role:    choice.Message.Role,
+			Content: choice.Message.Content,
+		})
+	}
+
+	return &data, nil
 
 }
