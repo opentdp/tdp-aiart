@@ -36,17 +36,18 @@ func stream(c *gin.Context) {
 
 	if res, err := chatbot.CreateStream(rq); err == nil {
 		c.Stream(func(w io.Writer) bool {
-			if resp, ok := <-res; ok {
+			resp, ok := <-res
+			if ok {
+				event := "message"
 				if resp.FinishReason == "<!finish>" {
-					c.SSEvent("stop", "finish")
+					event = "stop"
 				}
 				if resp.FinishReason == "<!error>" {
-					c.SSEvent("stop", "error")
+					event = "stop"
 				}
-				c.SSEvent("message", resp)
-				return true
+				c.SSEvent(event, resp)
 			}
-			return false
+			return ok
 		})
 	} else {
 		c.Set("Error", err)
