@@ -150,6 +150,7 @@ func OpenaiChatStream(rq *ReqeustParam) (chan ChatResponse, error) {
 				Index:  resp.Choices[0].Index,
 				Reason: resp.Choices[0].FinishReason,
 				Message: ChatMessage{
+					Role:    "assistant",
 					Content: resp.Choices[0].Delta.Content,
 				},
 			}
