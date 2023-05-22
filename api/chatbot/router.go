@@ -16,6 +16,7 @@ func Router(api *gin.RouterGroup) {
 
 	{
 		rg.POST("/create", create)
+		rg.POST("/stream", stream)
 	}
 
 }

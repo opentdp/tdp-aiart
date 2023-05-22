@@ -6,10 +6,12 @@ type ReqeustParam struct {
 }
 
 type ChatResponse struct {
-	Messages []ChatMessage
+	Messages     []ChatMessage
+	FinishReason string
 }
 
 type ChatMessage struct {
+	Index   int
 	Role    string
 	Content string
 }
@@ -17,5 +19,11 @@ type ChatMessage struct {
 func Create(rq *ReqeustParam) (*ChatResponse, error) {
 
 	return OpenaiChat(rq)
+
+}
+
+func CreateStream(rq *ReqeustParam) (chan ChatResponse, error) {
+
+	return OpenaiChatStream(rq)
 
 }
