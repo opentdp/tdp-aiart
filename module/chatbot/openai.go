@@ -1,7 +1,6 @@
-package openai
+package chatbot
 
 import (
-	"context"
 	"errors"
 	"net/http"
 	"net/url"
@@ -11,7 +10,7 @@ import (
 	"tdp-aiart/model/config"
 )
 
-func Client() (*openai.Client, error) {
+func OpenaiClient() (*openai.Client, error) {
 
 	kv := config.ValuesOf("openai")
 
@@ -36,27 +35,5 @@ func Client() (*openai.Client, error) {
 	}
 
 	return openai.NewClientWithConfig(config), nil
-
-}
-
-func Chat(rq []ChatCompletionMessage) (*ChatCompletionMessage, error) {
-
-	client, err := Client()
-	if err != nil {
-		return nil, err
-	}
-
-	resp, err := client.CreateChatCompletion(
-		context.Background(),
-		openai.ChatCompletionRequest{
-			Model:    openai.GPT3Dot5Turbo,
-			Messages: rq,
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	return &resp.Choices[0].Message, nil
 
 }

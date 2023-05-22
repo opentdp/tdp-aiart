@@ -3,20 +3,20 @@ package chatbot
 import (
 	"github.com/gin-gonic/gin"
 
-	"tdp-aiart/module/openai"
+	"tdp-aiart/module/chatbot"
 )
 
-func message(c *gin.Context) {
+func create(c *gin.Context) {
 
-	var rq []openai.ChatCompletionMessage
+	var rq chatbot.ChatCompletionRequest
 
 	if err := c.ShouldBind(&rq); err != nil {
 		c.Set("Error", err)
 		return
 	}
 
-	if res, err := openai.Chat(rq); err == nil {
-		c.Set("Payload", gin.H{"Item": res})
+	if res, err := chatbot.Create(rq); err == nil {
+		c.Set("Payload", res)
 	} else {
 		c.Set("Error", err)
 	}

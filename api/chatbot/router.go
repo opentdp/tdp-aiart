@@ -15,7 +15,7 @@ func Router(api *gin.RouterGroup) {
 	rg.Use(midware.AuthGuard())
 
 	{
-		rg.POST("/message", message)
+		rg.POST("/create", create)
 	}
 
 }
