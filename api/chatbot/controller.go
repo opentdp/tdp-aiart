@@ -39,10 +39,7 @@ func stream(c *gin.Context) {
 			resp, ok := <-res
 			if ok {
 				event := "message"
-				if resp.FinishReason == "<!finish>" {
-					event = "stop"
-				}
-				if resp.FinishReason == "<!error>" {
+				if resp.Reason == "<!finish>" || resp.Reason == "<!error>" {
 					event = "stop"
 				}
 				c.SSEvent(event, resp)

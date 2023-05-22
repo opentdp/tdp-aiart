@@ -74,11 +74,9 @@ func OpenaiChat(rq *ReqeustParam) (*ChatResponse, error) {
 	// 解析返回的数据
 
 	data := ChatResponse{
-		Messages: []ChatMessage{
-			{
-				Role:    resp.Choices[0].Message.Role,
-				Content: resp.Choices[0].Message.Content,
-			},
+		Message: ChatMessage{
+			Role:    resp.Choices[0].Message.Role,
+			Content: resp.Choices[0].Message.Content,
 		},
 	}
 
@@ -129,35 +127,31 @@ func OpenaiChatStream(rq *ReqeustParam) (chan ChatResponse, error) {
 			resp, err := stream.Recv()
 			if errors.Is(err, io.EOF) {
 				data <- ChatResponse{
-					FinishReason: "<!finish>",
+					Reason: "<!finish>",
 				}
 				return
 			}
 			if err != nil {
 				data <- ChatResponse{
-					FinishReason: "<!error>",
-					Messages: []ChatMessage{
-						{
-							Content: err.Error(),
-						},
+					Reason: "<!error>",
+					Message: ChatMessage{
+						Content: err.Error(),
 					},
 				}
 				return
 			}
 			if len(resp.Choices) == 0 {
 				data <- ChatResponse{
-					FinishReason: "<!finish>",
+					Reason: "<!finish>",
 				}
 				return
 			}
 			data <- ChatResponse{
-				Messages: []ChatMessage{
-					{
-						Index:   resp.Choices[0].Index,
-						Content: resp.Choices[0].Delta.Content,
-					},
+				Index:  resp.Choices[0].Index,
+				Reason: resp.Choices[0].FinishReason,
+				Message: ChatMessage{
+					Content: resp.Choices[0].Delta.Content,
 				},
-				FinishReason: resp.Choices[0].FinishReason,
 			}
 		}
 	}()

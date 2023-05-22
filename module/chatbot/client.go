@@ -6,12 +6,12 @@ type ReqeustParam struct {
 }
 
 type ChatResponse struct {
-	Messages     []ChatMessage
-	FinishReason string
+	Index   int
+	Reason  string
+	Message ChatMessage
 }
 
 type ChatMessage struct {
-	Index   int
 	Role    string
 	Content string
 }
