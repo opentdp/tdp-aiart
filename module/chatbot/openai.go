@@ -118,7 +118,7 @@ func OpenaiChatStream(rq *ReqeustParam) (chan ChatResponse, error) {
 
 	// 解析返回的数据
 
-	data := make(chan ChatResponse, 100)
+	data := make(chan ChatResponse, 32*1024)
 
 	go func() {
 		defer stream.Close()
