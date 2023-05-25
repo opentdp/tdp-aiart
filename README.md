@@ -1,4 +1,4 @@
-# 土豆片AI艺术家
+# 土豆片人工智能艺术平台
 
 [![TDP Aiart Builder](https://github.com/open-tdp/tdp-aiart/actions/workflows/release.yml/badge.svg)](https://github.com/open-tdp/tdp-aiart/actions/workflows/release.yml)
 
