@@ -52,6 +52,7 @@ type User struct {
 	AppId        string `gorm:"size:128;uniqueIndex"`
 	AppKey       string `gorm:"size:128" json:"-"`
 	Email        string `gorm:"size:255;uniqueIndex"`
+	Avatar       string `gorm:"size:255;default:/assets/image/avatar.jpg"`
 	Description  string `gorm:"size:1024;default:挥一挥手"`
 	ArtworkQuota uint   `gorm:"size:32;default:3"`
 	CreatedAt    int64
