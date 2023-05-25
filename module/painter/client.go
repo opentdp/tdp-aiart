@@ -28,23 +28,23 @@ type ResponseData struct {
 
 func Create(rq *ReqeustParam) (*ResponseData, error) {
 
-	outputImage, err := TencentAiart(rq)
+	base64Image, err := TencentAiart(rq)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return saveObject(rq, outputImage)
+	if base64Image == "" {
+		return nil, errors.New("图片生成失败")
+	}
+
+	return saveObject(rq, base64Image)
 
 }
 
 func saveObject(param *ReqeustParam, base64Image string) (*ResponseData, error) {
 
-	if base64Image == "" {
-		return nil, errors.New("图片生成失败")
-	}
-
-	filePath := upload.BasePathName(7)
+	filePath := "/artwork" + upload.TimePathname(7)
 
 	// 保存生成图片
 

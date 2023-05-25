@@ -11,7 +11,7 @@ import (
 	"tdp-aiart/cmd/args"
 )
 
-func BasePathName(rand uint) string {
+func TimePathname(rand uint) string {
 
 	base := time.Now().Format("/2006/0102/1504/05")
 
