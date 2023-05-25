@@ -14,7 +14,7 @@ require (
 	// Map 转结构体
 	github.com/mitchellh/mapstructure v1.5.0
 	// 辅助类库
-	github.com/open-tdp/go-helper v0.0.11
+	github.com/open-tdp/go-helper v0.1.1
 	// OpenAI 接口
 	github.com/sashabaranov/go-openai v1.9.0
 	// 类型转换
@@ -38,6 +38,7 @@ require (
 	github.com/forgoer/openssl v1.5.0 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
+	github.com/gin-contrib/static v0.0.1 // indirect
 	github.com/glebarez/go-sqlite v1.21.1 // indirect
 	github.com/glebarez/sqlite v1.8.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
