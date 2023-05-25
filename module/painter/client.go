@@ -1,5 +1,12 @@
 package painter
 
+import (
+	"errors"
+	"strings"
+
+	"tdp-aiart/module/upload"
+)
+
 type ReqeustParam struct {
 	Action         string
 	Subject        string
@@ -28,5 +35,41 @@ func Create(rq *ReqeustParam) (*ResponseData, error) {
 	}
 
 	return saveObject(rq, outputImage)
+
+}
+
+func saveObject(param *ReqeustParam, base64Image string) (*ResponseData, error) {
+
+	if base64Image == "" {
+		return nil, errors.New("图片生成失败")
+	}
+
+	filePath := upload.BasePathName(7)
+
+	// 保存生成图片
+
+	outputFile := filePath + "o.jpg"
+	if upload.SaveBase64Image(outputFile, base64Image) != nil {
+		return nil, errors.New("图片保存失败")
+	}
+
+	// 保存原始图片
+
+	if param.InputImage != "" {
+		imagePath := filePath + "i.png"
+		imageBase64 := strings.Split(param.InputImage, ",")[1]
+		if upload.SaveBase64Image(imagePath, imageBase64) == nil {
+			param.InputImage = imagePath
+		}
+	}
+
+	// 返回结果
+
+	result := &ResponseData{
+		InputFile:  param.InputImage,
+		OutputFile: outputFile,
+	}
+
+	return result, nil
 
 }
