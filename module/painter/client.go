@@ -44,7 +44,7 @@ func Create(rq *ReqeustParam) (*ResponseData, error) {
 
 func saveObject(param *ReqeustParam, base64Image string) (*ResponseData, error) {
 
-	filePath := "/artwork" + upload.TimePathname(7)
+	filePath := upload.BaseDir + "/artwork" + upload.TimePathname(7)
 
 	// 保存生成图片
 
