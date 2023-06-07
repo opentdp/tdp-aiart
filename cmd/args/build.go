@@ -1,7 +1,7 @@
 package args
 
-const Version = "0.7.2"
-const BuildVersion = "230505"
+const Version = "0.7.3"
+const BuildVersion = "230601"
 
 const AppName = "TDP Aiart"
 const AppSummary = "土豆片AI平台"
