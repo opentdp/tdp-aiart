@@ -14,7 +14,7 @@ require (
 	// Map 转结构体
 	github.com/mitchellh/mapstructure v1.5.0
 	// 辅助类库
-	github.com/open-tdp/go-helper v0.1.2
+	github.com/open-tdp/go-helper v0.1.3
 	// OpenAI 接口
 	github.com/sashabaranov/go-openai v1.9.0
 	// 类型转换
