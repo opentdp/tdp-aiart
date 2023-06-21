@@ -1,12 +1,12 @@
 package args
 
-const Version = "0.7.3"
-const BuildVersion = "230601"
+const Version = "0.7.4"
+const BuildVersion = "230603"
 
 const AppName = "TDP Aiart"
-const AppSummary = "土豆片AI平台"
+const AppSummary = "土豆片人工智能平台"
 
-const UpdateUrl = "https://aiart.opentdp.org/update/"
+const UpdateUrl = "https://get.opentdp.org/update/aiart"
 
 const ReadmeText = AppSummary + `
 
