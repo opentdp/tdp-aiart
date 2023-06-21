@@ -1,5 +1,10 @@
 package chatbot
 
+type ChatModel struct {
+	Name      string
+	CreatedAt int64
+}
+
 type ReqeustParam struct {
 	Model    string
 	Messages []ChatMessage
@@ -16,7 +21,7 @@ type ChatMessage struct {
 	Content string
 }
 
-func Models() ([]string, error) {
+func Models() ([]*ChatModel, error) {
 
 	return OpenaiModels()
 

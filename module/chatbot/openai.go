@@ -41,7 +41,7 @@ func OpenaiClient() (*openai.Client, error) {
 
 }
 
-func OpenaiModels() ([]string, error) {
+func OpenaiModels() ([]*ChatModel, error) {
 
 	client, err := OpenaiClient()
 	if err != nil {
@@ -60,11 +60,14 @@ func OpenaiModels() ([]string, error) {
 
 	// 解析返回的数据
 
-	models := []string{}
+	models := []*ChatModel{}
 
 	for _, model := range resp.Models {
 		if strings.Contains(model.ID, "gpt") {
-			models = append(models, model.ID)
+			models = append(models, &ChatModel{
+				Name:      model.ID,
+				CreatedAt: model.CreatedAt,
+			})
 		}
 	}
 
