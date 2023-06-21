@@ -15,6 +15,7 @@ func Router(api *gin.RouterGroup) {
 	rg.Use(midware.AuthGuard())
 
 	{
+		rg.POST("/models", models)
 		rg.POST("/create", create)
 		rg.POST("/stream", stream)
 	}

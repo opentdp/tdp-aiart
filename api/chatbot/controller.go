@@ -8,6 +8,16 @@ import (
 	"tdp-aiart/module/chatbot"
 )
 
+func models(c *gin.Context) {
+
+	if res, err := chatbot.Models(); err == nil {
+		c.Set("Payload", res)
+	} else {
+		c.Set("Error", err)
+	}
+
+}
+
 func create(c *gin.Context) {
 
 	var rq *chatbot.ReqeustParam

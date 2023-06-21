@@ -16,6 +16,12 @@ type ChatMessage struct {
 	Content string
 }
 
+func Models() ([]string, error) {
+
+	return OpenaiModels()
+
+}
+
 func Create(rq *ReqeustParam) (*ChatResponse, error) {
 
 	return OpenaiChat(rq)

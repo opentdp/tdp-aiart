@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strings"
 
 	"github.com/sashabaranov/go-openai"
 
@@ -37,6 +38,37 @@ func OpenaiClient() (*openai.Client, error) {
 	}
 
 	return openai.NewClientWithConfig(config), nil
+
+}
+
+func OpenaiModels() ([]string, error) {
+
+	client, err := OpenaiClient()
+	if err != nil {
+		return nil, err
+	}
+
+	// 调用 OpenAI 接口
+
+	resp, err := client.ListModels(
+		context.Background(),
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	// 解析返回的数据
+
+	models := []string{}
+
+	for _, model := range resp.Models {
+		if strings.Contains(model.ID, "gpt") {
+			models = append(models, model.ID)
+		}
+	}
+
+	return models, nil
 
 }
 
