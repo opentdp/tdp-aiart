@@ -148,7 +148,7 @@ func OpenaiChatStream(rq *ReqeustParam) (chan ChatResponse, error) {
 			}
 			data <- ChatResponse{
 				Index:  resp.Choices[0].Index,
-				Reason: resp.Choices[0].FinishReason,
+				Reason: string(resp.Choices[0].FinishReason),
 				Message: ChatMessage{
 					Role:    "assistant",
 					Content: resp.Choices[0].Delta.Content,
