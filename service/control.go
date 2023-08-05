@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/kardianos/service"
-	"github.com/open-tdp/go-helper/logman"
+	"github.com/opentdp/go-helper/logman"
 
 	"tdp-aiart/service/server"
 )

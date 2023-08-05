@@ -1,7 +1,7 @@
 package migrator
 
 import (
-	"github.com/open-tdp/go-helper/strutil"
+	"github.com/opentdp/go-helper/strutil"
 
 	"tdp-aiart/cmd/args"
 	"tdp-aiart/model/user"

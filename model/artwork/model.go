@@ -1,7 +1,7 @@
 package artwork
 
 import (
-	"github.com/open-tdp/go-helper/dborm"
+	"github.com/opentdp/go-helper/dborm"
 	"gorm.io/gorm"
 
 	"tdp-aiart/model"

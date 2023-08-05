@@ -5,7 +5,7 @@ import (
 	"errors"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/open-tdp/go-helper/tencent"
+	"github.com/opentdp/go-helper/tencent"
 
 	"tdp-aiart/model/config"
 )

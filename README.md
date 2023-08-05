@@ -1,6 +1,6 @@
 # 土豆片人工智能艺术平台
 
-[![TDP Aiart Builder](https://github.com/open-tdp/tdp-aiart/actions/workflows/release.yml/badge.svg)](https://github.com/open-tdp/tdp-aiart/actions/workflows/release.yml)
+[![TDP Aiart Builder](https://github.com/opentdp/tdp-aiart/actions/workflows/release.yml/badge.svg)](https://github.com/opentdp/tdp-aiart/actions/workflows/release.yml)
 
 开源智能聊天、智能绘画服务平台
 

@@ -3,7 +3,7 @@ package migrator
 import (
 	"tdp-aiart/cmd/args"
 
-	"github.com/open-tdp/go-helper/dborm"
+	"github.com/opentdp/go-helper/dborm"
 )
 
 func v100006() error {
