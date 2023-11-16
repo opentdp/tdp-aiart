@@ -17,8 +17,8 @@ func Router(engine *gin.Engine) {
 
 	api := engine.Group("/api")
 
-	api.Use(midware.OutputHandle())
-	api.Use(midware.JwtGuard())
+	api.Use(midware.OutputHandle)
+	api.Use(midware.JwtGuard)
 
 	{
 		artwork.Router(api)
